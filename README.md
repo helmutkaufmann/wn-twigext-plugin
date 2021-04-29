@@ -30,56 +30,6 @@ or
 
 ## Available functions
 
-
-### Cache
-Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions: 
-- cacheAdd(key, value, [duration=3600 seconds]) implements Cache::Add
-- cachePut(key, value, [duration=3600 seconds]) implements Cache::Put
-- cacheForever(key) implements Cache::Forever
-- cacheForget(key) implements Cache::Forget
-- cacheFlush()  implements Cache::Flush
-- cacheGet(key, [default value if not found = null]) implements Cache::Get
-- cacheImcrement(key, [default increment value = 1]) implements Cache::Increement
-- cacheDecrement(key, [default decrement value = 1]) implements Cache::Increement
-- cachePull(key, default value if not found = null]) implements Cache::Pull
-
-### Cookies
-Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions: 
-- cookieQueue(key, [value = true], [duration in seconds = 86400])
-- cookieForever(key, [value = true])
-- cookieGet(key)
-- cookieExpire(key)
-
-### Session
-Providing [Laravel's session functionality](https://laravel.com/docs/8.x/session) as Twig functions: 
-- sessionPush(key, value)
-- sessionGet(key, [default vaklue when key is not found = ""]) --> value
-- sessionPull(key, [default vaklue when key is not found = ""]) --> value
-- sessionHas(key)
-- sessionForget(key)
-- sessionFlush()
-- sessionRegenerate()
-- sessionFlash(key, value)
-- sessionReflash()
-
-### Cryptography
-Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions: 
-- cryptEncryptString(value) implements Crypt::encryptString
-- crypDecryptString(vakue) implements Crypt::decryptString
-
-### Paths
-Providing Winter's path helper functionality as Twig functions:
-- pathBase([file = ""]) --> fully qualified path to a given file relative to Winter's root directory
-- pathConfig([file = ""]) --> fully qualified path to a given file relative to the configuration directory
-- pathDatabase([file = ""]) --> fully qualified path to a given file relative to the configuration directory
-- pathMedia([file = ""]) --> fully qualified path to a given file relative to the media directory
-- pathPlugins([file = ""]) --> fully qualified path to a given file relative to the plugins directory
-- pathPublic([file = ""]) --> fully qualified path to a given file relative to the public directory
-- pathStorage([file = ""]) --> fully qualified path to a given file relative to the storage directory
-- pathTemp([file = ""]) --> fully qualified path to a given file relative to the temp directory
-- pathThemes([file = ""]) --> fully qualified path to a given file relative to the themes directory
-- pathUpload([file = ""]) --> fully qualified path to a given file relative to the upload directory
-
 ### Storage
 Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesystem):
 #### Directories
@@ -101,6 +51,56 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 - storageAppemd(file, content,[disk="local"]) appends *content* to a *sile* om the respective *disk*
 - storageDelete(file,[disk="local"]) deletes the *file* on the respective *disk*
 
+
+### Cryptography
+Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions: 
+- cryptEncryptString(value) implements Crypt::encryptString
+- crypDecryptString(vakue) implements Crypt::decryptString
+
+### Cookies
+Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions: 
+- cookieQueue(key, [value = true], [duration in seconds = 86400])
+- cookieForever(key, [value = true])
+- cookieGet(key)
+- cookieExpire(key)
+
+### Cache
+Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions: 
+- cacheAdd(key, value, [duration=3600 seconds]) implements Cache::Add
+- cachePut(key, value, [duration=3600 seconds]) implements Cache::Put
+- cacheForever(key) implements Cache::Forever
+- cacheForget(key) implements Cache::Forget
+- cacheFlush()  implements Cache::Flush
+- cacheGet(key, [default value if not found = null]) implements Cache::Get
+- cacheImcrement(key, [default increment value = 1]) implements Cache::Increement
+- cacheDecrement(key, [default decrement value = 1]) implements Cache::Increement
+- cachePull(key, default value if not found = null]) implements Cache::Pull
+
+
+### Session
+Providing [Laravel's session functionality](https://laravel.com/docs/8.x/session) as Twig functions: 
+- sessionPush(key, value)
+- sessionGet(key, [default vaklue when key is not found = ""]) --> value
+- sessionPull(key, [default vaklue when key is not found = ""]) --> value
+- sessionHas(key)
+- sessionForget(key)
+- sessionFlush()
+- sessionRegenerate()
+- sessionFlash(key, value)
+- sessionReflash()
+
+### Paths
+Providing Winter's path helper functionality as Twig functions:
+- pathBase([file = ""]) --> fully qualified path to a given file relative to Winter's root directory
+- pathConfig([file = ""]) --> fully qualified path to a given file relative to the configuration directory
+- pathDatabase([file = ""]) --> fully qualified path to a given file relative to the configuration directory
+- pathMedia([file = ""]) --> fully qualified path to a given file relative to the media directory
+- pathPlugins([file = ""]) --> fully qualified path to a given file relative to the plugins directory
+- pathPublic([file = ""]) --> fully qualified path to a given file relative to the public directory
+- pathStorage([file = ""]) --> fully qualified path to a given file relative to the storage directory
+- pathTemp([file = ""]) --> fully qualified path to a given file relative to the temp directory
+- pathThemes([file = ""]) --> fully qualified path to a given file relative to the themes directory
+- pathUpload([file = ""]) --> fully qualified path to a given file relative to the upload directory
 
 ### preg_grep
 Providing pattern matching capabilities.
