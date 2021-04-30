@@ -79,7 +79,7 @@ Use cookies, e.g., to (re-)display text only after a certain time, e.g. once a d
 
 {% endif %}
 {{ cookieQueue(key, updated, 86400) }}
-``
+```
 
 ### Cache
 Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions: 
