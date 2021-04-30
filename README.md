@@ -8,7 +8,7 @@ This plugin has been tested with with [WinterCMS](https://wintercms.com) 1.1.3.
 
 ## Installation
 
-Use Composer to install the plugin by executing
+Use Composer to install the plugin by executing ;)
 
 ```
 composer require mercator/wn-twigext-plugin
