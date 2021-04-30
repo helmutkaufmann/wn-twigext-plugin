@@ -2,9 +2,9 @@
 
 TwigExt is a Twig filters and functions extension plugin for [WinterCMS](https://wintercms.com). It is largely based on OctoberCMS' Twig Extensions by Vojta Svoboda - and fully incldues the functionality of the original plugin.
 
-TwigExt allows developers to easily add new Twing funcions and filters to the currently active WinterCMS template.
+TwigExt allows developers to easily add new Twing funcions and filters to the currently active [WinterCMS](https://wintercms.com) template.
 
-This plugin has been tested with with WinterCMS 1.1.3. 
+This plugin has been tested with with [WinterCMS](https://wintercms.com) 1.1.3. 
 
 ## Installation
 
@@ -14,11 +14,11 @@ Use Composer to install the plugin by executing
 composer require mercator/wn-twigext-plugin
 ```
 
-from the root of your WinterCMS installation. Alternatively, create a directory "mercator/twigext", download the files from Github and move them in the newly created sub-directory.
+from the root of your [WinterCMS](https://wintercms.com) installation. Alternatively, create a directory "mercator/twigext", download the files from Github and move them in the newly created sub-directory.
 
-Installation from the WinterCMS backend will be added once WinterCMS's marketplace is available. 
+Installation from the [WinterCMS](https://wintercms.com) backend will be added once [WinterCMS's](https://wintercms.com) marketplace is available. 
 
-Than you can use newly added filters/functions in your templates (layouts, partials, ....), for example:
+Than you can use newly added filters/functions in your templates (layouts, partials, ....) as you use any built-in Twig function or filter, for example:
 
 ```
 {% redirect('https://mercator.li') %}
@@ -27,17 +27,21 @@ or
 ```
 {% redirect('/contact') %}
 ```
+or
+```
+This is just {{ 'great' | uppercase }}
+```
 
 ## Available functions
 
 ### Storage
 Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesystem):
 #### Directories
-- storageDirectories(directory, [disk="local"]) --> returns array of directories in *directory* on the respctive *disk*
-- storageAllDirectories(directory, [disk="local"]) --> returns array of directories in *directory* and its sub-directories on the respctive *disk*
-- storageDeleteDirectory(directory, [disk="local"]) deletes the *directory* on the respctive *disk*
-- storageFiles(directory, [disk="local"]) --> returns array of files in *directory* on the respctive *disk*. The result excludes directories.
-- storageAllFiles(directory, [disk="local"]) --> returns array of files in *directory* and its sub-directories on the respctive *disk*. The result excludes directories.
+- storageDirectories(directory, [disk="local"]) --> returns array of directories in *directory* on the respective *disk*
+- storageAllDirectories(directory, [disk="local"]) --> returns array of directories in *directory* and its sub-directories on the respective *disk*
+- storageDeleteDirectory(directory, [disk="local"]) deletes the *directory* on the respective *disk*
+- storageFiles(directory, [disk="local"]) --> returns array of files in *directory* on the respective *disk*. The result excludes directories.
+- storageAllFiles(directory, [disk="local"]) --> returns array of files in *directory* and its sub-directories on the respective *disk*. The result excludes directories.
 
 #### Files
 - storageExists(file,[disk="local"]) returns true/false: Checks if *file* on the respective *disk* exists
@@ -63,6 +67,19 @@ Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/response
 - cookieForever(key, [value = true])
 - cookieGet(key)
 - cookieExpire(key)
+
+Use cookies, e.g., to (re-)display text only after a certain time, e.g. once a day (after 86400 seconds):
+``
+{% set key = ("cookie-key" %}
+{% set updated = (element.published | strftime('%Y-%m-%d-%H-%M-%S')) %}
+
+{% if (not cookieGet(key)) or (cookieGet(key) < updated) %}
+
+    Hello, this is the text you want to display once a day (every 86400 seconds)
+
+{% endif %}
+{{ cookieQueue(key, updated, 86400) }}
+``
 
 ### Cache
 Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions: 
