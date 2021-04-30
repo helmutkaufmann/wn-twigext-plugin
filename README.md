@@ -68,8 +68,8 @@ Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/response
 - cookieGet(key)
 - cookieExpire(key)
 
-Use cookies, e.g., to (re-)display text only after a certain time, e.g. once a day (after 86400 seconds):
-``
+Use cookies for example to (re-)display text only after a certain time, e.g. once a day (after 86400 seconds):
+```
 {% set key = ("cookie-key" %}
 {% set updated = (element.published | strftime('%Y-%m-%d-%H-%M-%S')) %}
 
