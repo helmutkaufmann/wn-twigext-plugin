@@ -208,10 +208,12 @@ Function loads a template from a string.
 
 ## Available filters
 
-strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
+ngresize, strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
 plural, truncate, wordwrap, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, time\_diff,
 localizeddate, localizednumber, localizedcurrency, mailto, var\_dump, revision, sortbyfield
 
+### ngresize
+Replacement for Twig's **resize** function. However, when **exention** is not set as part of the options, it will return **webp** in case the browser is capabable of rendering tis format. The function will be expanded to return **avif** once available in Winer.
 ### strftime
 
 Format a local time/date according to locale settings.
