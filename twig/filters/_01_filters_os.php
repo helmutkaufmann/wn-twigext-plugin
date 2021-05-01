@@ -4,14 +4,10 @@ $filters += [
         
 	// Additional fsenameilters
       		
-
-	'basename' => function ($path, $suffix=null) {
-		return basename($path, $suffix);
-	},
-
-	'dirname' => function ($path, $levels=1) {
-		return dirname($path, $levels);
-	},
+	'basename' => 'basename',
+	
+	'dirname' => 'dirname',
+	
 /*
 	'addslashes' => function ($file) {
 		return addslashes($file);
