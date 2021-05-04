@@ -3,6 +3,7 @@
 use App;
 use Backend;
 use Carbon\Carbon;
+use Event;
 use Snilius\Twig\SortByFieldExtension;
 use System\Classes\PluginBase;
 use Twig_Extension_StringLoader;
@@ -11,6 +12,7 @@ use Twig_Extensions_Extension_Date;
 use Twig_Extensions_Extension_Intl;
 use Twig_Extensions_Extension_Text;
 use Cms\Classes\Theme;
+use Cms\Classes\Controller;
 use Mercator\TwigExt\Classes\TimeDiffTranslator;
 
 /**
@@ -43,6 +45,19 @@ class Plugin extends PluginBase
 
     public function boot()
     {
+    
+    	// 
+        // Listen to resizing events and set the default image format based on the browser's rendering capabilities
+        // At the moment, the only advanced media format is webp. This would optimize the behavior of the standard
+        // Twig resize function.
+        //
+        Event::listen('system.resizer.getDefaultOptions', function (&$defaultOptions) {
+
+			if (strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ) 
+    			$defaultOptions['extension'] = 'webp';
+    	
+		});	
+		
         $this->app->singleton('time_diff_translator', function ($app) {
             $loader = $app->make('translation.loader');
             $locale = $app->config->get('app.locale');
