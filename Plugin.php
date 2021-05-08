@@ -20,8 +20,7 @@ use Mercator\TwigExt\Classes\TimeDiffTranslator;
  *
  * @see http://twig.sensiolabs.org/doc/extensions/index.html#extensions-install
  */
-class Plugin extends PluginBase
-{
+class Plugin extends PluginBase {
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
@@ -32,29 +31,25 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    public function pluginDetails()
-    {
+    public function pluginDetails() {
         return ['name' => 'Twig Extensions', 'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more. Replacement October's Twig Extensions plugin.", 'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus', 'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin', ];
     }
 
-    public function boot()
-    {
+    public function boot() {
 
         //
         // Listen to resizing events and set the default image format based on the browser's rendering capabilities
         // At the moment, the only advanced media format is webp. This would optimize the behavior of the standard
         // Twig resize function.
         //
-        Event::listen('system.resizer.getDefaultOptions', function (&$defaultOptions)
-        {
+        Event::listen('system.resizer.getDefaultOptions', function (&$defaultOptions) {
 
             if (isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false)) $defaultOptions['extension'] = 'webp';
 
         });
 
         $this
-            ->app->singleton('time_diff_translator', function ($app)
-        {
+            ->app->singleton('time_diff_translator', function ($app) {
             $loader = $app->make('translation.loader');
             $locale = $app
                 ->config
@@ -78,8 +73,7 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    public function registerMarkupTags()
-    {
+    public function registerMarkupTags() {
         $filters = [];
         $functions = [];
 
@@ -110,8 +104,7 @@ class Plugin extends PluginBase
         $filters += $this->getTextFilters($twig);
 
         // add Intl extensions if php5-intl installed
-        if (class_exists('IntlDateFormatter'))
-        {
+        if (class_exists('IntlDateFormatter')) {
             $filters += $this->getLocalizedFilters($twig);
         }
 
@@ -134,13 +127,11 @@ class Plugin extends PluginBase
         $filters += $this->getFileRevision();
 
         // Additional global filters
-        foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file)
-        {
+        foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file) {
             require $file;
         }
 
-        foreach (glob(__DIR__ . "/twig/functions/_*.php") as $file)
-        {
+        foreach (glob(__DIR__ . "/twig/functions/_*.php") as $file) {
             require $file;
         }
 
@@ -148,13 +139,11 @@ class Plugin extends PluginBase
         $theme = Theme::getActiveTheme();
         $theme_path = $theme->getPath();
 
-        foreach (glob($theme_path . "/twig/filters/_*php") as $file)
-        {
+        foreach (glob($theme_path . "/twig/filters/_*php") as $file) {
             require $file;
         }
 
-        foreach (glob($theme_path . "/twig/functions/_*.php") as $file)
-        {
+        foreach (glob($theme_path . "/twig/functions/_*.php") as $file) {
             require $file;
         }
 
@@ -168,13 +157,11 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getStringLoaderFunctions($twig)
-    {
+    private function getStringLoaderFunctions($twig) {
         $stringLoader = new Twig_Extension_StringLoader();
         $stringLoaderFunc = $stringLoader->getFunctions();
 
-        return ['template_from_string' => function ($template) use ($twig, $stringLoaderFunc)
-        {
+        return ['template_from_string' => function ($template) use ($twig, $stringLoaderFunc) {
             $callable = $stringLoaderFunc[0]->getCallable();
             return $callable($twig, $template);
         }
@@ -188,18 +175,15 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getTextFilters($twig)
-    {
+    private function getTextFilters($twig) {
         $textExtension = new Twig_Extensions_Extension_Text();
         $textFilters = $textExtension->getFilters();
 
-        return ['truncate' => function ($value, $length = 30, $preserve = false, $separator = '...') use ($twig, $textFilters)
-        {
+        return ['truncate' => function ($value, $length = 30, $preserve = false, $separator = '...') use ($twig, $textFilters) {
             $callable = $textFilters[0]->getCallable();
             return $callable($twig, $value, $length, $preserve, $separator);
         }
-        , 'wordwrap' => function ($value, $length = 80, $separator = "\n", $preserve = false) use ($twig, $textFilters)
-        {
+        , 'wordwrap' => function ($value, $length = 80, $separator = "\n", $preserve = false) use ($twig, $textFilters) {
             $callable = $textFilters[1]->getCallable();
             return $callable($twig, $value, $length, $separator, $preserve);
         }
@@ -213,23 +197,19 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getLocalizedFilters($twig)
-    {
+    private function getLocalizedFilters($twig) {
         $intlExtension = new Twig_Extensions_Extension_Intl();
         $intlFilters = $intlExtension->getFilters();
 
-        return ['localizeddate' => function ($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null, $timezone = null, $format = null) use ($twig, $intlFilters)
-        {
+        return ['localizeddate' => function ($date, $dateFormat = 'medium', $timeFormat = 'medium', $locale = null, $timezone = null, $format = null) use ($twig, $intlFilters) {
             $callable = $intlFilters[0]->getCallable();
             return $callable($twig, $date, $dateFormat, $timeFormat, $locale, $timezone, $format);
         }
-        , 'localizednumber' => function ($number, $style = 'decimal', $type = 'default', $locale = null) use ($twig, $intlFilters)
-        {
+        , 'localizednumber' => function ($number, $style = 'decimal', $type = 'default', $locale = null) use ($twig, $intlFilters) {
             $callable = $intlFilters[1]->getCallable();
             return $callable($number, $style, $type, $locale);
         }
-        , 'localizedcurrency' => function ($number, $currency = null, $locale = null) use ($twig, $intlFilters)
-        {
+        , 'localizedcurrency' => function ($number, $currency = null, $locale = null) use ($twig, $intlFilters) {
             $callable = $intlFilters[2]->getCallable();
             return $callable($number, $currency, $locale);
         }
@@ -241,13 +221,11 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getArrayFilters()
-    {
+    private function getArrayFilters() {
         $arrayExtension = new Twig_Extensions_Extension_Array();
         $arrayFilters = $arrayExtension->getFilters();
 
-        return ['shuffle' => function ($array) use ($arrayFilters)
-        {
+        return ['shuffle' => function ($array) use ($arrayFilters) {
             $callable = $arrayFilters[0]->getCallable();
             return $callable($array);
         }
@@ -261,16 +239,14 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getTimeFilters($twig)
-    {
+    private function getTimeFilters($twig) {
         $translator = $this
             ->app
             ->make('time_diff_translator');
         $timeExtension = new Twig_Extensions_Extension_Date($translator);
         $timeFilters = $timeExtension->getFilters();
 
-        return ['time_diff' => function ($date, $now = null) use ($twig, $timeFilters)
-        {
+        return ['time_diff' => function ($date, $now = null) use ($twig, $timeFilters) {
             $callable = $timeFilters[0]->getCallable();
             return $callable($twig, $date, $now);
         }
@@ -282,13 +258,11 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getSortByField()
-    {
+    private function getSortByField() {
         $extension = new SortByFieldExtension();
         $filters = $extension->getFilters();
 
-        return ['sortbyfield' => function ($array, $sort_by = null, $direction = 'asc') use ($filters)
-        {
+        return ['sortbyfield' => function ($array, $sort_by = null, $direction = 'asc') use ($filters) {
             $callable = $filters[0]->getCallable();
             return $callable($array, $sort_by, $direction);
         }
@@ -300,10 +274,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getMailFilters()
-    {
-        return ['mailto' => function ($string, $link = true, $protected = true, $text = null, $class = "")
-        {
+    private function getMailFilters() {
+        return ['mailto' => function ($string, $link = true, $protected = true, $text = null, $class = "") {
             return $this->hideEmail($string, $link, $protected, $text, $class);
         }
         ];
@@ -314,71 +286,54 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getPhpFunctions()
-    {
-        return ['strftime' => function ($time, $format = '%d.%m.%Y %H:%M:%S')
-        {
+    private function getPhpFunctions() {
+        return ['strftime' => function ($time, $format = '%d.%m.%Y %H:%M:%S') {
             $timeObj = new Carbon($time);
             return strftime($format, $timeObj->getTimestamp());
         }
-        , 'uppercase' => function ($string)
-        {
+        , 'uppercase' => function ($string) {
             return mb_convert_case($string, MB_CASE_UPPER, "UTF-8");
         }
-        , 'lowercase' => function ($string)
-        {
+        , 'lowercase' => function ($string) {
             return mb_convert_case($string, MB_CASE_LOWER, "UTF-8");
         }
-        , 'ucfirst' => function ($string)
-        {
+        , 'ucfirst' => function ($string) {
             return ucfirst($string);
         }
-        , 'lcfirst' => function ($string)
-        {
+        , 'lcfirst' => function ($string) {
             return lcfirst($string);
         }
-        , 'ltrim' => function ($string, $charlist = " \t\n\r\0\x0B")
-        {
+        , 'ltrim' => function ($string, $charlist = " \t\n\r\0\x0B") {
             return ltrim($string, $charlist);
         }
-        , 'rtrim' => function ($string, $charlist = " \t\n\r\0\x0B")
-        {
+        , 'rtrim' => function ($string, $charlist = " \t\n\r\0\x0B") {
             return rtrim($string, $charlist);
         }
-        , 'str_repeat' => function ($string, $multiplier = 1)
-        {
+        , 'str_repeat' => function ($string, $multiplier = 1) {
             return str_repeat($string, $multiplier);
         }
-        , 'plural' => function ($string, $count = 2)
-        {
+        , 'plural' => function ($string, $count = 2) {
             return str_plural($string, $count);
         }
-        , 'strpad' => function ($string, $pad_length, $pad_string = ' ')
-        {
+        , 'strpad' => function ($string, $pad_length, $pad_string = ' ') {
             return str_pad($string, $pad_length, $pad_string, $pad_type = STR_PAD_BOTH);
         }
-        , 'leftpad' => function ($string, $pad_length, $pad_string = ' ')
-        {
+        , 'leftpad' => function ($string, $pad_length, $pad_string = ' ') {
             return str_pad($string, $pad_length, $pad_string, $pad_type = STR_PAD_LEFT);
         }
-        , 'rightpad' => function ($string, $pad_length, $pad_string = ' ')
-        {
+        , 'rightpad' => function ($string, $pad_length, $pad_string = ' ') {
             return str_pad($string, $pad_length, $pad_string, $pad_type = STR_PAD_RIGHT);
         }
-        , 'rtl' => function ($string)
-        {
+        , 'rtl' => function ($string) {
             return strrev($string);
         }
-        , 'str_replace' => function ($string, $search, $replace)
-        {
+        , 'str_replace' => function ($string, $search, $replace) {
             return str_replace($search, $replace, $string);
         }
-        , 'strip_tags' => function ($string, $allow = '')
-        {
+        , 'strip_tags' => function ($string, $allow = '') {
             return strip_tags($string, $allow);
         }
-        , 'var_dump' => function ($expression)
-        {
+        , 'var_dump' => function ($expression) {
             ob_start();
             var_dump($expression);
             $result = ob_get_clean();
@@ -393,10 +348,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getConfigFunction()
-    {
-        return ['config' => function ($key = null, $default = null)
-        {
+    private function getConfigFunction() {
+        return ['config' => function ($key = null, $default = null) {
             return config($key, $default);
         }
         , ];
@@ -407,10 +360,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getEnvFunction()
-    {
-        return ['env' => function ($key, $default = null)
-        {
+    private function getEnvFunction() {
+        return ['env' => function ($key, $default = null) {
             return env($key, $default);
         }
         , ];
@@ -421,10 +372,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getSessionFunction()
-    {
-        return ['session' => function ($key = null)
-        {
+    private function getSessionFunction() {
+        return ['session' => function ($key = null) {
             return session($key);
         }
         , ];
@@ -435,10 +384,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getTransFunction()
-    {
-        return ['trans' => function ($key = null, $parameters = [])
-        {
+    private function getTransFunction() {
+        return ['trans' => function ($key = null, $parameters = []) {
             return trans($key, $parameters);
         }
         , ];
@@ -449,10 +396,8 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getVarDumpFunction()
-    {
-        return ['var_dump' => function ($expression)
-        {
+    private function getVarDumpFunction() {
+        return ['var_dump' => function ($expression) {
             ob_start();
             var_dump($expression);
             $result = ob_get_clean();
@@ -474,18 +419,15 @@ class Plugin extends PluginBase
      *
      * @return string
      */
-    private function hideEmail($email, $link = true, $protected = true, $text = null, $class = "")
-    {
-    	// email link text
+    private function hideEmail($email, $link = true, $protected = true, $text = null, $class = "") {
+        // email link text
         $linkText = $email;
-        if ($text !== null)
-        {
+        if ($text !== null) {
             $linkText = $text;
         }
 
         // if we want just unprotected link
-        if (!$protected)
-        {
+        if (!$protected) {
             return $link ? '<a href="mailto:' . $email . '">' . $linkText . '</a>' : $linkText;
         }
 
@@ -494,23 +436,19 @@ class Plugin extends PluginBase
         $key = str_shuffle($character_set);
         $cipher_text = '';
         $id = 'e' . rand(1, 999999999);
-        for ($i = 0;$i < strlen($email);$i += 1)
-        {
+        for ($i = 0;$i < strlen($email);$i += 1) {
             $cipher_text .= $key[strpos($character_set, $email[$i]) ];
         }
         $script = 'var a="' . $key . '";var b=a.split("").sort().join("");var c="' . $cipher_text . '";var d=""; var cl="' . $class . '";';
         $script .= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));';
         $script .= 'var y = d;';
-        if ($text !== null)
-        {
+        if ($text !== null) {
             $script .= 'var y = "' . $text . '";';
         }
-        if ($link)
-        {
+        if ($link) {
             $script .= 'document.getElementById("' . $id . '").innerHTML="<a class=\""+cl+"\" href=\\"mailto:"+d+"\\">"+y+"</a>"';
         }
-        else
-        {
+        else {
             $script .= 'document.getElementById("' . $id . '").innerHTML=y';
         }
         $script = "eval(\"" . str_replace(array(
@@ -534,15 +472,12 @@ class Plugin extends PluginBase
      *
      * @return array
      */
-    private function getFileRevision()
-    {
-        return ['revision' => function ($filename, $format = null)
-        {
+    private function getFileRevision() {
+        return ['revision' => function ($filename, $format = null) {
             // Remove http/web address from the file name if there is one to load it locally
-         $prefix = url('/');
+            $prefix = url('/');
             $filename_ = trim(preg_replace('/^' . preg_quote($prefix, '/') . '/', '', $filename) , '/');
-            if (file_exists($filename_))
-            {
+            if (file_exists($filename_)) {
                 $timestamp = filemtime($filename_);
                 $prepend = ($format) ? date($format, $timestamp) : $timestamp;
 
@@ -553,15 +488,15 @@ class Plugin extends PluginBase
         }
         , ];
     }
-    public function registerPermissions()
-    {
+    public function registerPermissions() {
         return ['mercator.twigext.twigextperm' => ['tab' => 'Twig Extensions', 'label' => 'Permission For Twig Extensions', ], ];
     }
 
-    public function registerSettings()
-    {
+    public function registerSettings() {
 
         return ['settings' => ['label' => 'Twig Extensions', 'description' => 'Configuration/Defaults', 'category' => 'Mrercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Twig Extensions Meractor', 'permissions' => ['mercator.twigext.twigextperm']]];
 
     }
 }
+
+
