@@ -1,7 +1,7 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt provides a large set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig 
+TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig 
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
 The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality. 
@@ -614,7 +614,7 @@ Sort array/collection by given field (key).
 ```
 Output will be: John David
 
-# New Filters and Functions
+# Adding New Filters and Functions
 Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to 
 the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php** 
 and make the included filters and functions available in Twig. 
