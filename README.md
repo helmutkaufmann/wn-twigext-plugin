@@ -652,4 +652,4 @@ See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#ext
 
 ## License
 
-Twig extensions plugin is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Twig extensions plugin is open source software licensed under the [MIT license](http://opensource.org/licenses/MIT).
