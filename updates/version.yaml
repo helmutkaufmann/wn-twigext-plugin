@@ -1,1 +1,11 @@
 0.9.001: Initial version on TwigExt based on October's Twig Extensions.
+0.9.002: Updated README.
+0.9.003: Added composer.json.
+0.9.004: Updated README with example.
+0.9.005: Updated LICENSE.
+0.9.006: Included ngresize (temporarily)
+0.9.007: Removed resize.
+0.9.008: Based on browser capabilities, the default extension is switched to web when using the resize function. This should lead to considerably smaller images sized.
+0.9.009: Adapted code for 0.9.008 to address $_SERVER['HTTP_ACCEPT'] not being set. Updated version history.
+
+

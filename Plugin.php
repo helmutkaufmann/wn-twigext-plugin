@@ -53,16 +53,16 @@ class Plugin extends PluginBase
         //
         Event::listen('system.resizer.getDefaultOptions', function (&$defaultOptions) {
 
-			if (strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ) 
+			if (isset($_SERVER['HTTP_ACCEPT']) && (strpos( $_SERVER['HTTP_ACCEPT'], 'image/webp' ) !== false ))
     			$defaultOptions['extension'] = 'webp';
     	
 		});	
 		
         $this->app->singleton('time_diff_translator', function ($app) {
-            $loader = $app->make('translation.loader');
-            $locale = $app->config->get('app.locale');
-            $translator = $app->make(TimeDiffTranslator::class, [$loader, $locale]);
-            $translator->setFallback($app->config->get('app.fallback_locale'));
+        $loader = $app->make('translation.loader');
+ 	$locale = $app->config->get('app.locale');
+        $translator = $app->make(TimeDiffTranslator::class, [$loader, $locale]);
+        $translator->setFallback($app->config->get('app.fallback_locale'));
 
             return $translator;
         });
