@@ -1,11 +1,11 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt provides a larget set of Twig filters and functions for [WinterCMS](https://wintercms.com). 
+TwigExt provides a large set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig 
+functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-In addition, TwigExt allows developers to easily add new Twig funcions and filters to a [WinterCMS](https://wintercms.com) theme.
-
-The plugin is based on OctoberCMS' *Twig Extensions* by Vojta Svoboda and includes that functionality. It has been tested with [WinterCMS](https://wintercms.com) 1.1.3. 
+The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality. 
+It has been tested with [WinterCMS](https://wintercms.com) 1.1.3. 
 
 ## Installation
 
