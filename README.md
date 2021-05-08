@@ -9,17 +9,19 @@ It has been tested with [WinterCMS](https://wintercms.com) 1.1.3.
 
 ## Installation
 
-Use Composer to install the plugin by executing ;)
+Use Composer to install the plugin by executing 
 
 ```
 composer require mercator/wn-twigext-plugin
 ```
 
-from the root of your [WinterCMS](https://wintercms.com) installation. Alternatively, create a directory "mercator/twigext", download the files from Github and move them in the newly created sub-directory.
+from the root of your [WinterCMS](https://wintercms.com) installation. 
 
-Installation from the [WinterCMS](https://wintercms.com) backend will be added once [WinterCMS's](https://wintercms.com) marketplace is available. 
+Alternatively, create a directory "mercator/twigext", download the [files from Github](https://github.com/helmutkaufmann/wn-twigext-plugin) and move them in the newly created sub-directory.
 
-Than you can use newly added filters/functions in your templates (layouts, partials, ....) as you use any built-in Twig function or filter, for example:
+Installation from the [WinterCMS](https://wintercms.com) backend will be added once the [WinterCMS](https://wintercms.com) marketplace is available. 
+
+You can now use the newly added filters and functions in your theme (layouts, partials, ....). For example:
 
 ```
 {% redirect('https://mercator.li') %}
