@@ -1,11 +1,11 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt is a Twig filters and functions extension plugin for [WinterCMS](https://wintercms.com). It is largely based on OctoberCMS' Twig Extensions by Vojta Svoboda - and fully incldues the functionality of the original plugin.
+TwigExt provides a larget set of Twig filters and functions for [WinterCMS](https://wintercms.com). 
 
-TwigExt allows developers to easily add new Twing funcions and filters to the currently active [WinterCMS](https://wintercms.com) template.
+In addition, TwigExt allows developers to easily add new Twig funcions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-This plugin has been tested with with [WinterCMS](https://wintercms.com) 1.1.3. 
+The plugin is based on OctoberCMS' *Twig Extensions* by Vojta Svoboda and includes that functionality. It has been tested with [WinterCMS](https://wintercms.com) 1.1.3. 
 
 ## Installation
 
@@ -610,8 +610,12 @@ Sort array/collection by given field (key).
     {{ item.name }}&nbsp;
 {% endfor %}
 ```
+Output will be: John David
+
 # New Filters and Functions
-Often, a prject requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** to the current theme and place functions an filters in these directories. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php** and make the included filters and functions available in Twig. 
+Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to 
+the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php** 
+and make the included filters and functions available in Twig. 
 
 Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory):
 ```
@@ -637,15 +641,13 @@ $filters += [
 ];
 ```
 
-Filters and functions MUST return a string. Multiple new filters or functions can be added to the respective arrays in one go. 
+Filters and functions MUST provide return values. Multiple new filters or functions can be added to the respective arrays in one go. 
 See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#extending-twig) for additional details.
-
-Output will be: John David 
 
 ## Contributing
 
-**Feel free to send pullrequest!** Please, send Pull Request to master branch.
+**Feel free to send pull request!** Please, send Pull Request to master branch.
 
 ## License
 
-Twig extensions plugin is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT) same as WinterCMS platform.
+Twig extensions plugin is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT.

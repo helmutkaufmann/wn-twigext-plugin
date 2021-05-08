@@ -7,5 +7,6 @@
 0.9.007: Removed resize.
 0.9.008: Based on browser capabilities, the default extension is switched to web when using the resize function. This should lead to considerably smaller images sized.
 0.9.009: Adapted code for 0.9.008 to address $_SERVER['HTTP_ACCEPT'] not being set. Updated version history.
+1.0.000: Production version.
 
 
