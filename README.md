@@ -60,10 +60,12 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 
 ### Geo-Coding
 Provide geo coordinates (longitude and latitude) for a given street address. Usage:
+
 ```
 {% set geo = geocodeAddress("Pardeplatz, Zurich, Switzerland) %}
 The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
-``
+```
+
 
 ### Cryptography
 Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions: 
