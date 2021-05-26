@@ -8,7 +8,6 @@ $filters += [
 	
 	'dirname' => 'dirname',
 	
-/*
 	'addslashes' => function ($file) {
 		return addslashes($file);
 	},
@@ -24,7 +23,7 @@ $filters += [
 	'urlencode' => function ($string) {
 		return urlencode($string) ;
 	},
-	
+
 	'htmlspecialchars' => function ($string) {
 		return htmlspecialchars($string) ;
 	},
@@ -40,8 +39,6 @@ $filters += [
 	'base64_decode' => function ($string) {
 		return base64_decode($string);
 	}
-*/       	
-            
 ];
 
 ?>

@@ -44,7 +44,7 @@ class Plugin extends PluginBase {
         //
         Event::listen('system.resizer.getDefaultOptions', function (&$defaultOptions) {
 
-            if (isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false)) $defaultOptions['extension'] = 'webp';
+//            if (isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false)) $defaultOptions['extension'] = 'webp';
 
         });
 
@@ -480,10 +480,8 @@ class Plugin extends PluginBase {
             if (file_exists($filename_)) {
                 $timestamp = filemtime($filename_);
                 $prepend = ($format) ? date($format, $timestamp) : $timestamp;
-
                 return $filename . "?" . $prepend;
             }
-
             return $filename;
         }
         , ];
@@ -498,5 +496,7 @@ class Plugin extends PluginBase {
 
     }
 }
+
+
 
 

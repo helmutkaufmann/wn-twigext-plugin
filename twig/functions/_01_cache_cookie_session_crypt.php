@@ -193,6 +193,22 @@ $functions += [
 		return $decrypted;
 	},
 	
+	'cryptEncrypt' => function ($value) {
+
+		  return Crypt::encrypt($value);
+	},
+
+	'cryptDecrypt' => function ($value) {
+
+		try {
+			$decrypted = Crypt::decrypt($value);
+		}
+		catch (Exception $ex) {
+			return false;
+		}
+		return $decrypted;
+	},
+	
 	//
 	// Config
 	//
