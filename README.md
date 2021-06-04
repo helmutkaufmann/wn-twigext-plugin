@@ -70,7 +70,9 @@ The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 ### Cryptography
 Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions: 
 - cryptEncryptString(value) implements Crypt::encryptString
-- crypDecryptString(vakue) implements Crypt::decryptString
+- cryptDecryptString(vakue) implements Crypt::decryptString
+- cryptEncrypt(value) implements Crypt::encrypt
+- cryptDecrypt(vakue) implements Crypt::decrypt
 
 ### Cookies
 Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions: 

@@ -9,3 +9,4 @@
 0.9.009: Adapted code for 0.9.008 to address $_SERVER['HTTP_ACCEPT'] not being set. Updated version history.
 1.0.000: Production version.
 1.0.001: Added maps functionality
+1.0.002: Added cryptEncrypt and cryptDecrypt
