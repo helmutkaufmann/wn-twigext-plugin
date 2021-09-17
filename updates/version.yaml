@@ -10,3 +10,4 @@
 1.0.000: Production version.
 1.0.001: Added maps functionality
 1.0.002: Added cryptEncrypt and cryptDecrypt
+1.1.000: Added QR Code functionality

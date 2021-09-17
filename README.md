@@ -1,25 +1,25 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig 
+TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality. 
-It has been tested with [WinterCMS](https://wintercms.com) 1.1.3. 
+The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality.
+It has been tested with [WinterCMS](https://wintercms.com) 1.1.3.
 
 ## Installation
 
-Use Composer to install the plugin by executing 
+Use Composer to install the plugin by executing
 
 ```
 composer require mercator/wn-twigext-plugin
 ```
 
-from the root of your [WinterCMS](https://wintercms.com) installation. 
+from the root of your [WinterCMS](https://wintercms.com) installation.
 
 Alternatively, create a directory "mercator/twigext", download the [files from Github](https://github.com/helmutkaufmann/wn-twigext-plugin) and move them in the newly created sub-directory.
 
-Installation from the [WinterCMS](https://wintercms.com) backend will be added once the [WinterCMS](https://wintercms.com) marketplace is available. 
+Installation from the [WinterCMS](https://wintercms.com) backend will be added once the [WinterCMS](https://wintercms.com) marketplace is available.
 
 You can now use the newly added filters and functions in your theme (layouts, partials, ....). For example:
 
@@ -36,6 +36,34 @@ This is just {{ 'great' | uppercase }}
 ```
 
 ## Available functions
+
+### QR Code
+### QR code for inline use
+Generate QR Code as GIF image for inline usage:
+```
+qrcode("https://mercator.li", 2, "XXXXXX", "000000", "qr-l")
+```
+returns a GIF with a QR code pointing to ***mercator.li***. The image can be embedded as follows:
+```
+<img alt="mercator dot li" src="{{ qrcode( "https://mercator.li", 2, "XXXXXX", "000000") }}">
+```
+
+### QR Code
+### QR code storage in file
+Generate QR Code as GIF image
+```
+qrcodeRaw("https://mercator.li", 2, "XXXXXX", "000000", "qr-l")
+```
+returns a GIF with a QR code pointing to ***mercator.li***. The is the "raw GIF data", which could
+subsequently be stored in a ".gif" file. The difference to the previous function is that the GIF
+data stream is prefixed with "data:image/gif;base64", so it can be used inline.
+
+Parameters for both of the above functions are:
+- text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
+- scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
+- background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background. Defaults to XXXXXX, which is transparent.
+- foreground: Foreground color in RGB hex format. Defaults to 000000, which is black.
+- ecc: Error correction level, valid values: qr, qr-l, qr-m, qr-q, qr-h. Defaults to qr-l.
 
 ### Storage
 Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesystem):
@@ -68,14 +96,14 @@ The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 
 
 ### Cryptography
-Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions: 
+Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions:
 - cryptEncryptString(value) implements Crypt::encryptString
 - cryptDecryptString(vakue) implements Crypt::decryptString
 - cryptEncrypt(value) implements Crypt::encrypt
 - cryptDecrypt(vakue) implements Crypt::decrypt
 
 ### Cookies
-Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions: 
+Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions:
 - cookieQueue(key, [value = true], [duration in seconds = 86400])
 - cookieForever(key, [value = true])
 - cookieGet(key)
@@ -95,7 +123,7 @@ Use cookies for example to (re-)display text only after a certain time, e.g. onc
 ```
 
 ### Cache
-Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions: 
+Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions:
 - cacheAdd(key, value, [duration=3600 seconds]) implements Cache::Add
 - cachePut(key, value, [duration=3600 seconds]) implements Cache::Put
 - cacheForever(key) implements Cache::Forever
@@ -108,7 +136,7 @@ Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as
 
 
 ### Session
-Providing [Laravel's session functionality](https://laravel.com/docs/8.x/session) as Twig functions: 
+Providing [Laravel's session functionality](https://laravel.com/docs/8.x/session) as Twig functions:
 - sessionPush(key, value)
 - sessionGet(key, [default vaklue when key is not found = ""]) --> value
 - sessionPull(key, [default vaklue when key is not found = ""]) --> value
@@ -135,7 +163,7 @@ Providing Winter's path helper functionality as Twig functions:
 ### preg_grep
 Providing pattern matching capabilities.
 
-preg_grep(array of strings, pattern, [flags = 0]) takes an array of *strings* and returns an array containing only elements from the input that match the given *pattern*, see the respective PHP function preg_grep for details. 
+preg_grep(array of strings, pattern, [flags = 0]) takes an array of *strings* and returns an array containing only elements from the input that match the given *pattern*, see the respective PHP function preg_grep for details.
 
 Example pattern to identify all GIFs, JP(E)G and TIF(F) files: ```"/(\.+)(?i:png|jpg|jpeg|gif|tiff|tif)/"```
 
@@ -588,7 +616,7 @@ PHP encrypts your email address and generates the JavaScript that decrypts it. M
 - first boolean parameter = returns email clickable (with link)
 - second boolean parameter = encryption is enabled
 - third string parameter = link text (not encrypted!)
-- fourth (optional) parameter = CSS class name (will render &lt;a mailto:.. class="my-class"&gt;..) 
+- fourth (optional) parameter = CSS class name (will render &lt;a mailto:.. class="my-class"&gt;..)
 
 ### var_dump
 
@@ -599,7 +627,7 @@ Dumps information about a variable.
 ```
 
 ### revision
- 
+
 Force the browser to reload cached modified/updated asset files.
 You can provide a format parameter so that the prepended timestamp get converted accordingly to the PHP date() function.
 
@@ -625,9 +653,9 @@ Sort array/collection by given field (key).
 Output will be: John David
 
 # Adding New Filters and Functions
-Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to 
-the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php** 
-and make the included filters and functions available in Twig. 
+Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to
+the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php**
+and make the included filters and functions available in Twig.
 
 Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory):
 ```
@@ -653,7 +681,7 @@ $filters += [
 ];
 ```
 
-Filters and functions MUST provide return values. Multiple new filters or functions can be added to the respective arrays in one go. 
+Filters and functions MUST provide return values. Multiple new filters or functions can be added to the respective arrays in one go.
 See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#extending-twig) for additional details.
 
 ## Contributing

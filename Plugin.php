@@ -14,6 +14,7 @@ use Twig_Extensions_Extension_Text;
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
 use Mercator\TwigExt\Classes\TimeDiffTranslator;
+use Mercator\TwigExt\Classes\phpqrcode;
 
 /**
  * Twig Extensions Plugin.
@@ -340,6 +341,10 @@ class Plugin extends PluginBase {
 
             return $result;
         }
+        , 'qrcode' => function ($expression) {
+            return QRcode::png($expression);
+        }
+
         , ];
     }
 
@@ -496,7 +501,3 @@ class Plugin extends PluginBase {
 
     }
 }
-
-
-
-
