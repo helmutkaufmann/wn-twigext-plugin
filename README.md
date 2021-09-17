@@ -55,7 +55,7 @@ Generate QR Code as GIF image for storage in a file. Usage:
 ```
 returns a GIF with a QR code pointing to *mercator.li*. The is the "raw GIF data", which could
 subsequently be stored in a ".gif" file. The difference to the previous function is that the GIF
-data stream is prefixed with "data:image/gif;base64", so it can be used inline.
+data stream is prefixed with *data:image/gif;base64*, so it can be used inline.
 
 Parameters for both of the above functions are:
 - text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
