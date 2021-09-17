@@ -41,9 +41,9 @@ This is just {{ 'great' | uppercase }}
 #### QR code for inline use
 Generate QR Code as GIF image for inline usage:
 ```
-qrcode("https://mercator.li", 2, "XXXXXX", "000000", "qr-l")
+qrcode("https://mercator.li", 2, "XXXXXX", "FF0000", "qr-l")
 ```
-returns a GIF with a QR code pointing to *mercator.li*. The image can be embedded as follows:
+returns a GIF with a red QR code on a transparent background pointing to *mercator.li*. The image can be embedded as follows:
 ```
 <img alt="mercator dot li" src="{{ qrcode("https://mercator.li", 2, "XXXXXX", "000000") }}">
 ```
