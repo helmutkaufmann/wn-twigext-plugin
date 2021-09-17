@@ -49,7 +49,7 @@ returns a GIF with a QR code pointing to *mercator.li*. The image can be embedde
 ```
 
 #### QR code for storage in file
-Generate QR Code as GIF image
+Generate QR Code as GIF image for storage in a file. Usage:
 ```
 {% set qrcode = qrcodeRaw("https://mercator.li", 2, "XXXXXX", "000000", "qr-l") %}
 ```
