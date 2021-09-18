@@ -53,6 +53,27 @@ to produce the full image tag, i.e.
 ```
 In this case, *alt* will be the same as the actual QR code content.
 
+
+You can create all different sorts of QR codes, e.g. a vcard:
+```
+{{ qrcodeIMG("
+BEGIN:VCARD
+VERSION:2.1
+FN:Max Mustermann
+N:Mustermann;Max
+TITLE:Dr.sc.techn.
+TEL;CELL:+41 23 456 78 90
+TEL;WORK;VOICE:+41 44 123 45 67
+TEL;HOME;VOICE:+41 43 123 45 67
+EMAIL;HOME;INTERNET:max.mustermann@musterorg.com
+EMAIL;WORK;INTERNET:max.mustermann.private@mustermax.ch
+URL:http://musterorg.com
+ADR:;;Haputplatz 1;Kussnacht am Rigi;SZ;6403;Schweiz
+ORG: Musterorg
+END:VCARD
+", 4) }}
+```
+
 Parameters for the above functions are:
 - text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
 - scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
