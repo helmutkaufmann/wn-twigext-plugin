@@ -51,18 +51,9 @@ alternatively, use
 ```
 {{ qrcodeIMG("https://mercator.li", 2, "XXXXXX", "FF0000") }} 
 ```
-to produce the full image tag, i.e. *"<img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">*
+to produce the full image tag, i.e. `"<img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">`xi`
 
-### QR code for storage in file
-Generate QR Code for storage in a file. Usage:
-```
-{% set qrcode = qrcodeFile("https://mercator.li", 2, "XXXXXX", "000000", "qr-l") %}
-```
-returns a GIF with a QR code pointing to *mercator.li*. The is the "raw GIF data", which could
-subsequently be stored in a ".gif" file. The difference to the previous function is that the GIF
-data stream is prefixed with *data:image/gif;base64*, so it can be used inline.
-
-Parameters for both of the above functions are:
+Parameters for the above functions are:
 - text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
 - scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
 - background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background. Defaults to XXXXXX, which is transparent.
