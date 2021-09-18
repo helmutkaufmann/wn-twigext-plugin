@@ -39,8 +39,6 @@ This is just {{ 'great' | uppercase }}
 
 ### QR Code
 #### QR code for inline use (qrcodeSRC and qrcodeIMG)
-Generate QR Code as GIF image for inline usage:
-```
 Create a GIF with a red QR code on a transparent background pointing to *mercator.li*: 
 ```
 <img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
@@ -49,7 +47,11 @@ alternatively, use the short version
 ```
 {{ qrcodeIMG("https://mercator.li", 2, "XXXXXX", "FF0000") }} 
 ```
-to produce the full image tag, i.e. ``"<img alt="https://mercator.li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">``. In this case, *alt* will be the same as the actual QR code content.
+to produce the full image tag, i.e. 
+```
+"<img alt="https://mercator.li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
+```
+In this case, *alt* will be the same as the actual QR code content.
 
 Parameters for the above functions are:
 - text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
