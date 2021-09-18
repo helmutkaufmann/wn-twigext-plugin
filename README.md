@@ -49,7 +49,7 @@ alternatively, use the short version
 ```
 to produce the full image tag, i.e. 
 ```
-"<img alt="https://mercator.li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
+<img alt="https://mercator.li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "FF0000") }}">
 ```
 In this case, *alt* will be the same as the actual QR code content.
 
