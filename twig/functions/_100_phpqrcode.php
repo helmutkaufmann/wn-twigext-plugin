@@ -1332,12 +1332,24 @@ function qrcode ($text="no data here", $scale=2, $background="XXXXXX", $foregrou
 			// $background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background.
 			// $foreground: Foreground color in RGB hex format.
     	// $ecc: Type of QR code, valid values: qr, qr-l, qr-m, qr-q, qr-h.
-			'qrcodeData' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
+			'qrcodeFile' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
 
 					return qrcode($text, $scale, $background, $foreground, $ecc);
 			},
 
+			'qrcodeIMG' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
+
+				return '<img alt="' . $text . '" src="data:image/gif;base64,' . qrcode($text, $scale, $background, $foreground, $ecc) . '">';
+
+			},
+
 			'qrcode' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
+
+				return "data:image/gif;base64," . qrcode($text, $scale, $background, $foreground, $ecc);
+
+			},
+
+			'qrcodeSRC' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
 
 				return "data:image/gif;base64," . qrcode($text, $scale, $background, $foreground, $ecc);
 

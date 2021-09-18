@@ -38,20 +38,25 @@ This is just {{ 'great' | uppercase }}
 ## Available functions
 
 ### QR Code
-#### QR code for inline use
+#### QR code for inline use (qrcodeSRC and qrcodeImg)
 Generate QR Code as GIF image for inline usage:
 ```
-qrcode("https://mercator.li", 2, "XXXXXX", "FF0000", "qr-l")
+qrcodeSRC("https://mercator.li", 2, "XXXXXX", "FF0000", "qr-l")
 ```
 returns a GIF with a red QR code on a transparent background pointing to *mercator.li*. The image can be embedded as follows:
 ```
-<img alt="mercator dot li" src="{{ qrcode("https://mercator.li", 2, "XXXXXX", "000000") }}">
+<img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
 ```
+alternatively, use 
+```
+{{ qrcodeIMG("https://mercator.li", 2, "XXXXXX", "FF0000") }} 
+```
+to produce the full image tag, i.e. *"<img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">*
 
-#### QR code for storage in file
-Generate QR Code as GIF image for storage in a file. Usage:
+### QR code for storage in file
+Generate QR Code for storage in a file. Usage:
 ```
-{% set qrcode = qrcodeRaw("https://mercator.li", 2, "XXXXXX", "000000", "qr-l") %}
+{% set qrcode = qrcodeFile("https://mercator.li", 2, "XXXXXX", "000000", "qr-l") %}
 ```
 returns a GIF with a QR code pointing to *mercator.li*. The is the "raw GIF data", which could
 subsequently be stored in a ".gif" file. The difference to the previous function is that the GIF
