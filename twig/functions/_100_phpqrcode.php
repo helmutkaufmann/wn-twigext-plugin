@@ -1,5 +1,7 @@
 <?php
+
 /****************************************************************************\
+
 
 qrcode.php - Generate QR Codes. MIT license.
 https://github.com/psyon/php-qrcode
@@ -1280,7 +1282,6 @@ class QRCode {
 		array( 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1 ),
 	);
 }
-
 
 function qrcode ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
 

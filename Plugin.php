@@ -14,7 +14,6 @@ use Twig_Extensions_Extension_Text;
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
 use Mercator\TwigExt\Classes\TimeDiffTranslator;
-use Mercator\TwigExt\Classes\phpqrcode;
 
 /**
  * Twig Extensions Plugin.
@@ -129,23 +128,23 @@ class Plugin extends PluginBase {
 
         // Additional global filters
         foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file) {
-            require $file;
+            require_once $file;
         }
 
         foreach (glob(__DIR__ . "/twig/functions/_*.php") as $file) {
-            require $file;
+            require_once $file;
         }
 
         // Additional theme-specific filters
         $theme = Theme::getActiveTheme();
         $theme_path = $theme->getPath();
 
-        foreach (glob($theme_path . "/twig/filters/_*php") as $file) {
-            require $file;
+        foreach (glob($theme_path . "/twig/filters/_*.php") as $file) {
+            require_once $file;
         }
 
         foreach (glob($theme_path . "/twig/functions/_*.php") as $file) {
-            require $file;
+            require_once $file;
         }
 
         return ['filters' => $filters, 'functions' => $functions, ];
@@ -341,11 +340,8 @@ class Plugin extends PluginBase {
 
             return $result;
         }
-        , 'qrcode' => function ($expression) {
-            return QRcode::png($expression);
-        }
 
-        , ];
+       ];
     }
 
     /**
