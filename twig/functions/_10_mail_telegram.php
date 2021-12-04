@@ -8,7 +8,7 @@ $functions += [
 	// Mail
 	//
 	'mailMessage' => function ($message, $to=null) {
-	
+
 		if (!$to || empty($to))
 			$to=Settings::get('mail_default');
 		Mail::rawTo($to, $message);
@@ -81,9 +81,9 @@ $functions += [
 
 	'telegram' => function ($text, $bot=null, $chat=null) {
 
-		if (empty($text)) 
+		if (empty($text) or (!$bot)) 
 			return "";
-		
+
 		if (!$bot || empty($bot))
 			$bot=Settings::get('telegram_bot');
 		if (!$chat || empty($chat))
