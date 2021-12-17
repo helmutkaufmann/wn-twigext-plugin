@@ -12,3 +12,4 @@
 1.0.002: Added cryptEncrypt and cryptDecrypt
 1.1.000: Added QR Code functionality
 1.1.001: Replace require by require_once when including functions and filters
+1.1.002: Updated README, syncing release numbers
