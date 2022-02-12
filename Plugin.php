@@ -21,6 +21,18 @@ use Mercator\TwigExt\Classes\TimeDiffTranslator;
  * @see http://twig.sensiolabs.org/doc/extensions/index.html#extensions-install
  */
 class Plugin extends PluginBase {
+
+  /**
+   * Registers any back-end permissions used by this plugin.
+   *
+   * @return array
+   */
+   public function registerPermissions() {
+       return ['mercator.twigextensions.configuration' => ['tab' => 'Twig Extensions', 'label' => 'Manage configuration', ],
+
+     ];
+   }
+
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
@@ -32,7 +44,9 @@ class Plugin extends PluginBase {
      * @return array
      */
     public function pluginDetails() {
-        return ['name' => 'Twig Extensions', 'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more. Replacement October's Twig Extensions plugin.", 'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus', 'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin', ];
+        return ['name' => 'Twig Extensions', 'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
+        'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus', 'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin', 'permissions' => ['mercator.twigextensions.configuration'],
+        'category' => 'mercator', 'icon' => 'icon-cog',];
     }
 
     public function boot() {
@@ -487,13 +501,11 @@ class Plugin extends PluginBase {
         }
         , ];
     }
-    public function registerPermissions() {
-        return ['mercator.twigext.twigextperm' => ['tab' => 'Twig Extensions', 'label' => 'Permission For Twig Extensions', ], ];
-    }
 
     public function registerSettings() {
 
-        return ['settings' => ['label' => 'Twig Extensions', 'description' => 'Configuration/Defaults', 'category' => 'Mrercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Twig Extensions Meractor', 'permissions' => ['mercator.twigext.twigextperm']]];
+        return ['settings' => ['label' => 'Twig Extensions', 'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
+        'category' => 'mercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Helmut Kaufmann Twig Extensions Mercator', 'permissions' => ['mercator.twigext.twigextperm']]];
 
     }
 }

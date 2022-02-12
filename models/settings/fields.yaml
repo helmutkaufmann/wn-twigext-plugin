@@ -1,31 +1,30 @@
 tabs:
     stretch: true
-    defaultTab: Communication
-    
+    defaultTab: Twig Extensions
+
     fields:
         info_section_1:
             label: Telegram
             type: section
-            tab: Communication 
+            
         telegram_bot:
             label: Default Telegram BOT ID
             span: left
             type: text
             comment: Default Chat ID to be used for Telegram communication
-            tab: Communication
+
         telegram_chat:
             label: DefaultTelegram Chat ID
             span: right
             type: text
             comment: Default ChatBOT ID to be used for Telegram communication.
-            tab: Communication
+
         info_section_2:
             label: Email
             type: section
-            tab: Communication 
+
         mail_default:
             label: Default Email Address
             span: left
             type: text
             comment: Default email address to be used when none is specified explicitly
-            tab: Communication
