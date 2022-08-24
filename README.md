@@ -1,11 +1,11 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig
+TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com). In addition, it allows developers to easily add new Twig
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality.
-It has been tested with [WinterCMS](https://wintercms.com) 1.1.7.
+The plugin was originally based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda.
+It has been adapted and tested with [WinterCMS](https://wintercms.com) 1.2.
 
 ## Installation
 
@@ -39,15 +39,15 @@ This is just {{ 'great' | uppercase }}
 
 ### QR Code
 #### QR code for inline use (qrcodeSRC and qrcodeIMG)
-Create a GIF with a red QR code on a transparent background pointing to *mercator.li*: 
+Create a GIF with a red QR code on a transparent background pointing to *mercator.li*:
 ```
 <img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
 ```
 alternatively, use the short version
 ```
-{{ qrcodeIMG("https://mercator.li", 2, "XXXXXX", "FF0000") }} 
+{{ qrcodeIMG("https://mercator.li", 2, "XXXXXX", "FF0000") }}
 ```
-to produce the full image tag, i.e. 
+to produce the full image tag, i.e.
 ```
 <img alt="https://mercator.li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "FF0000") }}">
 ```
@@ -92,10 +92,10 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 
 #### Files
 - storageExists(file,[disk="local"]) returns true/false: Checks if *file* on the respective *disk* exists
-- storageGet(file,[disk="local"]) return content of the *file* on the respective *disk*
-- storageSize(file,[disk="local"]) return size of the *file* on the respective *disk*
-- storageLastModified(file,[disk="local"]) return the last modification date of the *file* on the respective *disk*
-- storagePut(file, content,[disk="local"]) write the *content* the *file* on the respective *disk*
+- storageGet(file,[disk="local"]) returns the content of the *file* on the respective *disk*
+- storageSize(file,[disk="local"]) returns the size of the *file* on the respective *disk*
+- storageLastModified(file,[disk="local"]) returns the last modification date of the *file* on the respective *disk*
+- storagePut(file, content,[disk="local"]) writes the *content* the *file* on the respective *disk*
 - storageCopy(from, to, [disk="local"]) copies a file
 - storageMove(from, to, [disk="local"]) moves a file
 - storagePrepend(file, content,[disk="local"]) prepends *content* to a *sile* om the respective *disk*
@@ -106,13 +106,13 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 Provide geo coordinates (longitude and latitude) for a given street address. Usage:
 
 ```
-{% set geo = geocodeAddress("Pardeplatz, Zurich, Switzerland) %}
-The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
+{% set geo = geocodeAddress("Paradeplatz, Zürich, Switzerland") %}
+The address is located at {{ geo.longitude }} / {{ geo.latitude }} (long/lat).
 ```
 
 
 ### Cryptography
-Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/8.x/encryption) as Twig functions:
+Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/9.x/encryption) as Twig functions:
 - cryptEncryptString(value) implements Crypt::encryptString
 - cryptDecryptString(vakue) implements Crypt::decryptString
 - cryptEncrypt(value) implements Crypt::encrypt
@@ -195,11 +195,11 @@ mailRawTo(message, [recipient]) sends *message* to the recipient *recipient*. If
 
 Redirects to a specific URL
 ```
-{% redirect('https://mercator.li') %}
+{{ redirect('https://mercator.li') }}
 ```
 or
 ```
-{% redirect('/contact') %}
+{{ redirect('/contact') }}
 ```
 
 ### config
@@ -214,7 +214,7 @@ See [more about the Laravel config helper function here](https://laravel.com/doc
 
 ### env
 
-Function move the functionality of the Laravel `env()` helper function to Twig.
+Provide functionality of the Laravel `env()` helper function in Twig.
 
 ```
 {{ env('APP_ENV', 'production') }}
@@ -257,9 +257,9 @@ Dumps information about a variable. Can be also used as filter.
 Function loads a template from a string.
 
 ```
-{% set name = 'John' %}
-{{ include(template_from_string("Hello {{ name }}")) }}
-{{ include(template_from_string("Hurry up it is: {{ "now"|date("m/d/Y") }}")) }}
+{% set myname = "John" %}
+{{ include(template_from_string("Hello {{ myname }}")) }}
+{{ include(template_from_string("Hurry up it is: {{ 'now'|date('m/d/Y') }}")) }}
 ```
 
 ## Available filters
@@ -606,7 +606,7 @@ Use the localizedcurrency filter to format a currency value into a localized str
 Filter for rendering email as normal mailto link, but with encryption against bots!
 
 ```
-{{ 'do-not-reply-to-this@gmail.com' | mailto }}
+{{ "do-not-reply-to-this@gmail.com" | mailto }}
 ```
 
 returns something along the lines
@@ -702,7 +702,7 @@ See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#ext
 
 ## Contributing
 
-**Feel free to send pull request!** Please, send Pull Request to master branch.
+**Feel free to send pull request!** Please, send a pull request.
 
 ## License
 

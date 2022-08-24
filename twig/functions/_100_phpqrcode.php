@@ -1325,14 +1325,14 @@ function qrcode ($text="no data here", $scale=2, $background="XXXXXX", $foregrou
 
 }
 
-    $functions += [
+$functions += [
 
-    	// Twig QR code function
+			// Twig QR code function
 			// $text: Text to be converted to a QR code, e.g. https://mercator.li
 			// $scale: Scale factor of the QR code, 1 being the smallest.
 			// $background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background.
 			// $foreground: Foreground color in RGB hex format.
-    	// $ecc: Type of QR code, valid values: qr, qr-l, qr-m, qr-q, qr-h.
+			// $ecc: Type of QR code, valid values: qr, qr-l, qr-m, qr-q, qr-h.
 			'qrcodeFile' => function ($text="no data here", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l") {
 
 					return qrcode($text, $scale, $background, $foreground, $ecc);
@@ -1356,4 +1356,4 @@ function qrcode ($text="no data here", $scale=2, $background="XXXXXX", $foregrou
 
 			}
 
-		];
+];

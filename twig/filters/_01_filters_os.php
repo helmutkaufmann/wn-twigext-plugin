@@ -38,8 +38,15 @@ $filters += [
 
 	'base64_decode' => function ($string) {
 		return base64_decode($string);
+	},
+	
+	'shuffle' => function($array) {
+		$temparray=$array;
+		shuffle($temparray);
+		return $temparray;
 	}
-];
+
+]
 
 ?>
 

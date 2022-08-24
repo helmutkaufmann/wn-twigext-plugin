@@ -11,7 +11,7 @@ $functions += [
 
 		if (!$to || empty($to))
 			$to=Settings::get('mail_default');
-		Mail::rawTo($to, $message);
+		 Mail::rawTo($to, $message );
 		return "";
 	},
 

@@ -5,10 +5,11 @@ use Mercator\TwigExt\Models\Settings;
 $functions += [
 
 	//
-	// Mail
+	// Geocode address and return objecz with lon/lat (longitude and latitude)
 	//
 	'geocodeAddress' => function ($address) {
 
+		  $address = urlencode($address);
   		$json = "https://nominatim.openstreetmap.org/search.php?q=$address&format=jsonv2";
   		$ch = curl_init($json);
   		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

@@ -1,4 +1,5 @@
 <?php
+use Redirect;
 
 
 $functions += [
@@ -8,31 +9,23 @@ $functions += [
 	// STRINGS
 	//
 	'strCamel' => function ($text) {
-
 		  return camel_case(text);
-
 	},
 
 	//
 	// HEADERS AND REDIRECT
 	//
 	'time' => function () {
-
 		  return time();
-
 	},
 
 	'redirect' => function ($url) {
-
-		return Redirect::to($url);
-
+		return redirect()->away($url);
 	},
 
 	'header' => function ($info, $flag=false, $code=200) {
-
 		header($info, $flag, $code);
 		return "";
-
 	},
 
 	//
@@ -40,9 +33,7 @@ $functions += [
 	//
 
 	'addslashes' => function ($file) {
-
 		  return addslashes($file);
-
 	},
 
 	'explode' => function ($string, $delimiter="/", $limit=PHP_INT_MAX) {
