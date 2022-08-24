@@ -1,6 +1,4 @@
 <?php
-use Redirect;
-
 
 $functions += [
 
