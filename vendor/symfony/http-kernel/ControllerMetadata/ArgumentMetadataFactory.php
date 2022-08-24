@@ -21,30 +21,21 @@ final class ArgumentMetadataFactory implements ArgumentMetadataFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createArgumentMetadata($controller): array
+    public function createArgumentMetadata(string|object|array $controller, \ReflectionClass $class = null, \ReflectionFunctionAbstract $reflection = null): array
     {
         $arguments = [];
 
-        if (\is_array($controller)) {
-            $reflection = new \ReflectionMethod($controller[0], $controller[1]);
-            $class = $reflection->class;
-        } elseif (\is_object($controller) && !$controller instanceof \Closure) {
-            $reflection = new \ReflectionMethod($controller, '__invoke');
-            $class = $reflection->class;
-        } else {
-            $reflection = new \ReflectionFunction($controller);
-            if ($class = str_contains($reflection->name, '{closure}') ? null : $reflection->getClosureScopeClass()) {
-                $class = $class->name;
-            }
+        if (null === $reflection) {
+            $reflection = new \ReflectionFunction($controller(...));
+            $class = str_contains($reflection->name, '{closure}') ? null : $reflection->getClosureScopeClass();
         }
+        $class = $class?->name;
 
         foreach ($reflection->getParameters() as $param) {
             $attributes = [];
-            if (\PHP_VERSION_ID >= 80000) {
-                foreach ($param->getAttributes() as $reflectionAttribute) {
-                    if (class_exists($reflectionAttribute->getName())) {
-                        $attributes[] = $reflectionAttribute->newInstance();
-                    }
+            foreach ($param->getAttributes() as $reflectionAttribute) {
+                if (class_exists($reflectionAttribute->getName())) {
+                    $attributes[] = $reflectionAttribute->newInstance();
                 }
             }
 

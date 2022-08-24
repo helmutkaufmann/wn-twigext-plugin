@@ -37,7 +37,7 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class TextDescriptor extends Descriptor
 {
-    private $fileLinkFormatter;
+    private ?FileLinkFormatter $fileLinkFormatter;
 
     public function __construct(FileLinkFormatter $fileLinkFormatter = null)
     {
@@ -150,7 +150,7 @@ class TextDescriptor extends Descriptor
         if ($service instanceof Alias) {
             $this->describeContainerAlias($service, $options, $builder);
         } elseif ($service instanceof Definition) {
-            $this->describeContainerDefinition($service, $options);
+            $this->describeContainerDefinition($service, $options, $builder);
         } else {
             $options['output']->title(sprintf('Information for Service "<info>%s</info>"', $options['id']));
             $options['output']->table(
@@ -251,7 +251,7 @@ class TextDescriptor extends Descriptor
         $options['output']->table($tableHeaders, $tableRows);
     }
 
-    protected function describeContainerDefinition(Definition $definition, array $options = [])
+    protected function describeContainerDefinition(Definition $definition, array $options = [], ContainerBuilder $builder = null)
     {
         if (isset($options['id'])) {
             $options['output']->title(sprintf('Information for Service "<info>%s</info>"', $options['id']));
@@ -360,6 +360,9 @@ class TextDescriptor extends Descriptor
             $tableRows[] = ['Arguments', implode("\n", $argumentsInformation)];
         }
 
+        $inEdges = null !== $builder && isset($options['id']) ? $this->getServiceEdges($builder, $options['id']) : [];
+        $tableRows[] = ['Usages', $inEdges ? implode(', ', $inEdges) : 'none'];
+
         $options['output']->table($tableHeaders, $tableRows);
     }
 
@@ -401,10 +404,10 @@ class TextDescriptor extends Descriptor
             return;
         }
 
-        $this->describeContainerDefinition($builder->getDefinition((string) $alias), array_merge($options, ['id' => (string) $alias]));
+        $this->describeContainerDefinition($builder->getDefinition((string) $alias), array_merge($options, ['id' => (string) $alias]), $builder);
     }
 
-    protected function describeContainerParameter($parameter, array $options = [])
+    protected function describeContainerParameter(mixed $parameter, array $options = [])
     {
         $options['output']->table(
             ['Parameter', 'Value'],
@@ -508,7 +511,7 @@ class TextDescriptor extends Descriptor
         }
     }
 
-    protected function describeCallable($callable, array $options = [])
+    protected function describeCallable(mixed $callable, array $options = [])
     {
         $this->writeText($this->formatCallable($callable), $options);
     }
@@ -541,7 +544,7 @@ class TextDescriptor extends Descriptor
         return trim($configAsString);
     }
 
-    private function formatControllerLink($controller, string $anchorText, callable $getContainer = null): string
+    private function formatControllerLink(mixed $controller, string $anchorText, callable $getContainer = null): string
     {
         if (null === $this->fileLinkFormatter) {
             return $anchorText;
@@ -563,7 +566,7 @@ class TextDescriptor extends Descriptor
             } else {
                 $r = new \ReflectionFunction($controller);
             }
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException) {
             if (\is_array($controller)) {
                 $controller = implode('::', $controller);
             }
@@ -582,7 +585,7 @@ class TextDescriptor extends Descriptor
 
             try {
                 $r = new \ReflectionMethod($container->findDefinition($id)->getClass(), $method);
-            } catch (\ReflectionException $e) {
+            } catch (\ReflectionException) {
                 return $anchorText;
             }
         }
@@ -595,7 +598,7 @@ class TextDescriptor extends Descriptor
         return $anchorText;
     }
 
-    private function formatCallable($callable): string
+    private function formatCallable(mixed $callable): string
     {
         if (\is_array($callable)) {
             if (\is_object($callable[0])) {
