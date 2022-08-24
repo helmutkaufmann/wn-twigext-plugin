@@ -1,5 +1,31 @@
 <?php namespace Mercator\TwigExt;
 
+/*
+The MIT License (MIT)
+
+Copyright (C) 2021 Helmut Kaufmann, https://mercator.li, software@mercator.li
+Copyright (C) 2016 Vojta Svoboda
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
 use App;
 use Backend;
 use Exception;
@@ -64,11 +90,6 @@ class Plugin extends PluginBase {
 
     /**
      * Add Twig extensions.
-     *
-     * @see Text extensions http://twig.sensiolabs.org/doc/extensions/text.html
-     * @see Intl extensions http://twig.sensiolabs.org/doc/extensions/intl.html
-     * @see Array extension http://twig.sensiolabs.org/doc/extensions/array.html
-     * @see Time extension http://twig.sensiolabs.org/doc/extensions/date.html
      *
      * @return array
      */
@@ -150,7 +171,7 @@ class Plugin extends PluginBase {
     public function registerSettings() {
 
         return ['settings' => ['label' => 'Twig Extensions', 'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
-        'category' => 'mercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Helmut Kaufmann Twig Extensions Mercator', 'permissions' => ['mercator.twigext.twigextperm']]];
+        'category' => 'mercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Helmut Kaufmann Twig Extensions Mercator (for Winter 1.2)', 'permissions' => ['mercator.twigext.twigextperm']]];
 
     }
 }

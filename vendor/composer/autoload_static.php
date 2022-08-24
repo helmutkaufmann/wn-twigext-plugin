@@ -28,10 +28,8 @@ class ComposerStaticInit52771905cd2f34225ae3ef9f7c826395
             'Twig\\Extra\\Intl\\' => 16,
             'Twig\\Extra\\Inky\\' => 16,
             'Twig\\Extra\\Html\\' => 16,
-            'Twig\\Extra\\CssInliner\\' => 22,
             'Twig\\Extra\\Cache\\' => 17,
             'Twig\\' => 5,
-            'TijsVerkoyen\\CssToInlineStyles\\' => 31,
         ),
         'S' => 
         array (
@@ -58,7 +56,6 @@ class ComposerStaticInit52771905cd2f34225ae3ef9f7c826395
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\DependencyInjection\\' => 38,
-            'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bundle\\TwigBundle\\' => 26,
@@ -103,10 +100,6 @@ class ComposerStaticInit52771905cd2f34225ae3ef9f7c826395
         array (
             0 => __DIR__ . '/..' . '/twig/html-extra',
         ),
-        'Twig\\Extra\\CssInliner\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/twig/cssinliner-extra',
-        ),
         'Twig\\Extra\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/cache-extra',
@@ -114,10 +107,6 @@ class ComposerStaticInit52771905cd2f34225ae3ef9f7c826395
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
-        ),
-        'TijsVerkoyen\\CssToInlineStyles\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
@@ -210,10 +199,6 @@ class ComposerStaticInit52771905cd2f34225ae3ef9f7c826395
         'Symfony\\Component\\DependencyInjection\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/dependency-injection',
-        ),
-        'Symfony\\Component\\CssSelector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/css-selector',
         ),
         'Symfony\\Component\\Config\\' => 
         array (
