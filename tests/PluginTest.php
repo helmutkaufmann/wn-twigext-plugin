@@ -5,24 +5,12 @@ use Carbon\Carbon;
 use Config;
 use \System\Tests\Bootstrap\PluginTestCase;
 use Twig_Environment;
-use Mercator\TwigExt\Classes\TimeDiffTranslator;
 
 class PluginTest extends PluginTestCase
 {
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->app->setLocale('en');
-
-        $this->app->singleton('time_diff_translator', function ($app) {
-            $loader = $app->make('translation.loader');
-            $locale = $app->config->get('app.locale');
-            $translator = $app->make(TimeDiffTranslator::class, [$loader, $locale]);
-            $translator->setFallback($app->config->get('app.fallback_locale'));
-
-            return $translator;
-        });
     }
 
     /**
