@@ -1,45 +1,29 @@
-<?php 
+<?php
 
 $filters += [
-        
+
 	// Additional fsenameilters
-      		
+
 	'basename' => 'basename',
-	
+
 	'dirname' => 'dirname',
-	
-	'addslashes' => function ($file) {
-		return addslashes($file);
-	},
 
-	'bin2hex' => function ($string) {
-		return bin2hex($string);
-	},
+	'addslashes' => 'addslashes',
 
-	'hex2bin' => function ($string) {
-		return hex2bin($string);
-	},
+	'bin2hex' => 'bin2hex',
 
-	'urlencode' => function ($string) {
-		return urlencode($string) ;
-	},
+	'hex2bin' => 'hex2bin',
 
-	'htmlspecialchars' => function ($string) {
-		return htmlspecialchars($string) ;
-	},
+	'urlencode' => 'urlencode',
 
-	'urldecode' => function ($string) {
-		return urldecode($string);
-	},
+	'htmlspecialchars' => 'htmlspecialchars',
 
-	'base64_encode' => function ($string) {
-		return base64_encode($string);
-	},
+	'urldecode' => 'urldecode',
 
-	'base64_decode' => function ($string) {
-		return base64_decode($string);
-	},
-	
+	'base64_encode' => 'base64_encode',
+
+	'base64_decode' => 'base64_decode',
+
 	'shuffle' => function($array) {
 		$temparray=$array;
 		shuffle($temparray);
@@ -49,4 +33,3 @@ $filters += [
 ]
 
 ?>
-

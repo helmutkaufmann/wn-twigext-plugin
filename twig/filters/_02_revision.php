@@ -11,6 +11,7 @@
   */
 
 $filters += [
+	
 	 'revision' => function ($filename, $format = null) {
         // Remove http/web address from the file name if there is one to load it locally
         $prefix = url('/');
