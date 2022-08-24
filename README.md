@@ -12,7 +12,7 @@ It has been adapted and tested with [WinterCMS](https://wintercms.com) 1.2.
 Use Composer to install the plugin by executing
 
 ```
-composer require mercator/wn-twigext-plugin
+composer require mercator/wn-twigext-plugin "^1.2."
 ```
 
 from the root of your [WinterCMS](https://wintercms.com) installation.
@@ -702,7 +702,7 @@ See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#ext
 
 ## Contributing
 
-**Feel free to send pull request!** Please, send a pull request.
+**Feel free to send pull request to the 1.2 branch!** 
 
 ## License
 
