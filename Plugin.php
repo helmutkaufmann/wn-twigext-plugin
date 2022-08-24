@@ -56,7 +56,7 @@ class Plugin extends PluginBase {
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
-    public $elevated = true;
+    public $elevated = false;
 
     /**
      * Returns information about this plugin.
@@ -64,9 +64,13 @@ class Plugin extends PluginBase {
      * @return array
      */
     public function pluginDetails() {
-        return ['name' => 'Twig Extensions', 'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
-        'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus', 'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin', 'permissions' => ['mercator.twigextensions.configuration'],
-        'category' => 'mercator', 'icon' => 'icon-cog',];
+
+        return ['name' => 'Twig Extensions',
+                'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
+                'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
+                'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
+                'permissions' => ['mercator.twigextensions.configuration'],
+                'category' => 'mercator', 'icon' => 'icon-cog',];
     }
 
     public function boot() {
@@ -98,13 +102,59 @@ class Plugin extends PluginBase {
         $filters = [];
         $functions = [];
 
-        // init Twig
+        $this
+            ->app->singleton('time_diff_translator', function ($app) {
+            $loader = $app->make('translation.loader');
+            $locale = $app
+                ->config
+                ->get('app.locale');
+            $translator = $app->make(TimeDiffTranslator::class , [$loader, $locale]);
+            $translator->setFallback($app
+                ->config
+                ->get('app.fallback_locale'));
+
+            return $translator;
+        });
+
+        /**
+         * Get the Twig environment
+        **/
         $twig = App::make('twig.environment');
 
-        // Add String Loader functions
-        $functions += $this->getStringLoaderFunctions($twig);
+        /**
+         * Add String Loader functions.
+        **/
+        $stringLoaderFunc = (new \Twig\Extension\StringLoaderExtension())->getFunctions();
+        $functions += ['template_from_string' =>
+                      function ($template) use ($twig, $stringLoaderFunc) {
+                          $callable = $stringLoaderFunc[0]->getCallable();
+                          return $callable($twig, $template);
+                      } ];
 
-        // Add global filters and functions
+        /*
+
+        /**
+         * Add Text Loader functions.
+        **
+        $textExtension = new new \Twig\Extension\TextLoaderExtension();
+        $textFilters = $textExtension->getFilters();
+
+        $functions += ['truncate' => function ($value, $length = 30, $preserve = false, $separator = '...') use ($twig, $textFilters) {
+            $callable = $textFilters[0]->getCallable();
+            return $callable($twig, $value, $length, $preserve, $separator);
+        } ];
+
+        $functions += ['wordwrap' => function ($value, $length = 80, $separator = "\n", $preserve = false) use ($twig, $textFilters) {
+            $callable = $textFilters[1]->getCallable();
+            return $callable($twig, $value, $length, $separator, $preserve);
+        }
+        ];
+
+        */
+
+        /**
+         * Add global filters and functions.
+        **/
         foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file) {
             require_once $file;
         }
@@ -113,7 +163,9 @@ class Plugin extends PluginBase {
             require_once $file;
         }
 
-        // Add theme-specific filters and function
+        /**
+         * Add theme-specific filters and function.
+        **/
         $theme = Theme::getActiveTheme();
         $theme_path = $theme->getPath();
 
@@ -125,53 +177,20 @@ class Plugin extends PluginBase {
             require_once $file;
         }
 
-        // Return all filters and functions
+        /**
+         * Return all filters and functions.
+        **/
         return ['filters' => $filters, 'functions' => $functions, ];
-    }
-
-    /**
-     * Returns String Loader functions.
-     *
-     * @param \Twig_Environment $twig
-     *
-     * @return array
-     */
-    private function getStringLoaderFunctions($twig) {
-    $stringLoader = new \Twig\Extension\StringLoaderExtension(); // LARA
-        $stringLoaderFunc = $stringLoader->getFunctions();
-
-        return ['template_from_string' => function ($template) use ($twig, $stringLoaderFunc) {
-            $callable = $stringLoaderFunc[0]->getCallable();
-            return $callable($twig, $template);
-        }
-        ];}
-
-    /**
-     * Returns Text filters.
-     *
-     * @param \Twig_Environment $twig
-     *
-     * @return array
-     */
-      private function getTextFilters($twig) {
-        $textExtension = new Twig_Extensions_Extension_Text();
-        $textFilters = $textExtension->getFilters();
-
-        return ['truncate' => function ($value, $length = 30, $preserve = false, $separator = '...') use ($twig, $textFilters) {
-            $callable = $textFilters[0]->getCallable();
-            return $callable($twig, $value, $length, $preserve, $separator);
-        }
-        , 'wordwrap' => function ($value, $length = 80, $separator = "\n", $preserve = false) use ($twig, $textFilters) {
-            $callable = $textFilters[1]->getCallable();
-            return $callable($twig, $value, $length, $separator, $preserve);
-        }
-        ];
     }
 
     public function registerSettings() {
 
-        return ['settings' => ['label' => 'Twig Extensions', 'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
-        'category' => 'mercator', 'icon' => 'icon-cog', 'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500, 'keywords' => 'Helmut Kaufmann Twig Extensions Mercator (for Winter 1.2)', 'permissions' => ['mercator.twigext.twigextperm']]];
+        return ['settings' => ['label' => 'Twig Extensions',
+                                'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
+                                'category' => 'mercator', 'icon' => 'icon-cog',
+                                'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500,
+                                'keywords' => 'Helmut Kaufmann Twig Extensions Mercator (for Winter 1.2)',
+                                'permissions' => ['mercator.twigext.twigextperm']]];
 
     }
 }
