@@ -23,7 +23,8 @@
 	"twig/inky-extra": "^3",
         "twig/twig": "^3",
         "twig/markdown-extra": "^3",
-        "twig/intl-extra": "^3"
+        "twig/intl-extra": "^3",
+	"symfony/framework-bundle": "^6"
 
     },
     "require-dev": {

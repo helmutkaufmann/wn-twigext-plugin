@@ -3,7 +3,7 @@
         'name' => 'mercator/wn-twigext-plugin',
         'pretty_version' => '1.2.x-dev',
         'version' => '1.2.9999999.9999999-dev',
-        'reference' => 'cbd7fd38ba5aa8b4aa2f4c724a5a7edf01983587',
+        'reference' => 'fa76d23cb1ac79713923cf64f70625c67412a25b',
         'type' => 'winter-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -31,7 +31,7 @@
         'mercator/wn-twigext-plugin' => array(
             'pretty_version' => '1.2.x-dev',
             'version' => '1.2.9999999.9999999-dev',
-            'reference' => 'cbd7fd38ba5aa8b4aa2f4c724a5a7edf01983587',
+            'reference' => 'fa76d23cb1ac79713923cf64f70625c67412a25b',
             'type' => 'winter-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
