@@ -265,8 +265,7 @@ Function loads a template from a string.
 ## Available filters
 
 strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
-plural, truncate, wordwrap, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, time\_diff,
-localizeddate, localizednumber, localizedcurrency, mailto, var\_dump, revision, sortbyfield
+plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto, var\_dump, revision, sortbyfield
 
 ### strftime
 
@@ -357,65 +356,6 @@ You have {{ count }} new {{ 'mail' | plural(count) }}
 ```
 
 The example would output *You have 1 new mail* or *You have 3 new mails* - depending on mails count.
-
-### truncate
-
-Use the truncate filter to cut off a string after limit is reached.
-
-```
-{{ "Hello World!" | truncate(5) }}
-```
-
-The example would output *Hello...*, as ... is the default separator.
-
-You can also tell truncate to preserve whole words by setting the second parameter to true. If the last Word is on the the separator, truncate will print out the whole Word.
-
-```
-{{ "Hello World!" | truncate(7, true) }}
-```
-
-Here *Hello World!* would be printed.
-
-If you want to change the separator, just set the third parameter to your desired separator.
-
-```
-{{ "Hello World!" | truncate(7, false, "??") }}
-```
-
-This example would print *Hello W??*.
-
-### wordwrap
-
-Use the wordwrap filter to split your text in lines with equal length.
-
-```
-{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10) }}
-```
-This example would print:
-
-```
-Lorem ipsu  
-m dolor si  
-t amet, co  
-nsectetur  
-adipiscing  
-```
-
-The default separator is "\n", but you can easily change that by providing one:
-
-```
-{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10, "zz\n") }}
-```
-
-This would result in:
-
-```
-Lorem ipsuzz  
-m dolor sizz  
-t amet, cozz  
-nsectetur zz  
-adipiscing  
-```
 
 ### strpad
 
@@ -516,90 +456,6 @@ or in foreach:
 	{{ fruit }}
 {% endfor %}
 ```
-
-### time_diff
-
-Use the time_diff filter to render the difference between a date and now.
-
-```
-{{ post.published_at | time_diff }}
-```
-
-The example above will output a string like 4 seconds ago or in 1 month, depending on the filtered date.
-
-Output is **translatable**. All translations are stored at `/lang` folder in this plugin. If you want more locales, just copy them from [this repository](https://github.com/KnpLabs/KnpTimeBundle/tree/master/Resources/translations), replace `%count%` with `:count` and send it as pull reqest to this repository.
-
-#### Arguments
-
-- date: The date for calculate the difference from now. Can be a string or a DateTime instance.
-- now: The date that should be used as now. Can be a string or a DateTime instance. Do not set this argument to use current date.
-
-#### Translation
-
-To get a translatable output, give a Symfony\Component\Translation\TranslatorInterface as constructor argument. The returned string is formatted as diff.ago.XXX or diff.in.XXX where XXX can be any valid unit: second, minute, hour, day, month, year.
-
-### localizeddate
-
-Use the localizeddate filter to format dates into a localized string representating the date. Note that **php5-intl extension**/**php7-intl extension** has to be installed!
-
-```
-{{ post.published_at | localizeddate('medium', 'none', locale) }}
-```
-
-The localizeddate filter accepts strings (it must be in a format supported by the strtotime function), DateTime instances, or Unix timestamps.
-
-#### Arguments
-- date_format: The date format. Choose one of these formats:
-    - 'none': IntlDateFormatter::NONE
-    - 'short': IntlDateFormatter::SHORT
-    - 'medium': IntlDateFormatter::MEDIUM
-    - 'long': IntlDateFormatter::LONG
-    - 'full': IntlDateFormatter::FULL
-- time_format: The time format. Same formats possible as above.
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
-- timezone: The date timezone
-- format: Optional pattern to use when formatting or parsing. Possible patterns are documented in the ICU user guide.
-
-### localizednumber
-
-Use the localizednumber filter to format numbers into a localized string representating the number. Note that **php5-intl extension** has to be installed!
-
-```
-{{ product.quantity | localizednumber }}
-```
-
-Internally, Twig uses the PHP NumberFormatter::create() function for the number.
-
-#### Arguments
-
-- style: Optional date format (default: 'decimal'). Choose one of these formats:
-    - 'decimal': NumberFormatter::DECIMAL
-    - 'currency': NumberFormatter::CURRENCY
-    - 'percent': NumberFormatter::PERCENT
-    - 'scientific': NumberFormatter::SCIENTIFIC
-    - 'spellout': NumberFormatter::SPELLOUT
-    - 'ordinal': NumberFormatter::ORDINAL
-    - 'duration': NumberFormatter::DURATION
-- type: Optional formatting type to use (default: 'default'). Choose one of these types:
-    - 'default': NumberFormatter::TYPE_DEFAULT
-    - 'int32': NumberFormatter::TYPE_INT32
-    - 'int64': NumberFormatter::TYPE_INT64
-    - 'double': NumberFormatter::TYPE_DOUBLE
-    - 'currency': NumberFormatter::TYPE_CURRENCY
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
-
-### localizedcurrency
-
-Use the localizedcurrency filter to format a currency value into a localized string. Note that **php5-intl extension** has to be installed!
-
-```
-{{ product.price | localizedcurrency('EUR') }}
-```
-
-#### Arguments
-
-- currency: The 3-letter ISO 4217 currency code indicating the currency to use.
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
 
 ### mailto
 
