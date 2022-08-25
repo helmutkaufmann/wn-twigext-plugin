@@ -544,11 +544,11 @@ Sort array/collection by given field (key).
 Output will be: John David
 
 # Adding New Filters and Functions
-Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to
-the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php**
-and make the included filters and functions available in Twig.
+Often, a project requires a few specific functions. Traditionally, a Winter developer would therefore implement tailor-made
+plugins with the required functionality. This is quite some effort when only one or two
+functions are needed.This plugin simplifies the process of adding individual filters and functions to a project.
 
-Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory):
+Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory, files to be loaded must start with an underscore):
 ```
 <?php
 
@@ -561,7 +561,7 @@ $functions += [
 ];
 ```
 
-Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFucntions.php** in the active themes directory):
+Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFucntions.php** in the active themes directory, files to be loaded must start with an underscore):
 ```
 <?php
 
