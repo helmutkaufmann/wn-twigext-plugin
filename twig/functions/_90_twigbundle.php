@@ -3,8 +3,6 @@
 use App;
 use Twig\Extra\String\StringExtension;
 use Twig\Extra\Intl\IntlExtension;
-use Symfony\Component\String\ByteString;
-use Symfony\Component\String\CodePointString;
 use Symfony\Component\String\UnicodeString;
 
 
@@ -23,18 +21,6 @@ $functions += [
       return new UnicodeString($string ?? '');
     },
 
-    'b' => function ($string) {
-      return new ByteString($string ?? '');
-    },
-
-    'UnicodeString' => function ($string) {
-      return new UnicodeString($string ?? '');
-    },
-
-    'ByteString' => function ($string) {
-      return new ByteString($string ?? '');
-    }
-    
 ];
 
 

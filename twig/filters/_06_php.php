@@ -99,6 +99,9 @@ $functions += [
         return str_replace($search, $replace, $string);
     }
 
+    /**
+     * @deprecated as of v1.2: Use Twig standard function "striptags"
+     */
     , 'strip_tags' => function ($string, $allow = '') {
         return strip_tags($string, $allow);
     }

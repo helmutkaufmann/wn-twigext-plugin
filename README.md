@@ -264,6 +264,12 @@ Function loads a template from a string.
 
 ## Available filters
 
+## Twig u
+The Twig u filter has been implemented, providing in particular the following
+filters: **length, width, collapseWhitespace, folded, upper, title, camel, snake, ignoreCase, ignoreCase,
+prepend, append, ensureStart, ensureEnd, before, last, beforeLast, afterLast, padBoth, padStart,
+padEnd, trimStart, trimEnd, trimPrefix, trimSuffix, startsWith, endsWith, equalsTo, ascii**
+
 strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
 plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto, var\_dump, revision, sortbyfield
 
@@ -558,7 +564,7 @@ See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#ext
 
 ## Contributing
 
-**Feel free to send pull request to the 1.2 branch!** 
+**Feel free to send pull request to the 1.2 branch!**
 
 ## License
 

@@ -17,10 +17,6 @@ $filters += [
       return new UnicodeString($string ?? '');
     },
 
-    'b' => function ($string) {
-      return new ByteString($string ?? '');
-    },
-
     'country_name' => function (?string $country, string $locale = null){
       return (new IntlExtension())->getCountryName($country, $locale);
     },
