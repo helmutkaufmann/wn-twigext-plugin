@@ -109,7 +109,6 @@ Provide geo coordinates (longitude and latitude) for a given street address. Usa
 The address is located at {{ geo.longitude }} / {{ geo.latitude }} (long/lat).
 ```
 
-
 ### Cryptography
 Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/9.x/encryption) as Twig functions:
 - cryptEncryptString(value) implements Crypt::encryptString
@@ -297,7 +296,7 @@ Posted at {{ article.date | strftime('%d.%m.%Y %H:%M:%S') }}
 
 The example would output *Posted at 04.01.2016 22:57:42*. See [more format parameters](http://php.net/manual/en/function.strftime.php#refsect1-function.strftime-parameters).
 
-### uppercase
+### uppercase (deprecated, use *upper*)
 
 Make a string uppercase.
 
@@ -307,7 +306,7 @@ Hello I'm {{ 'Jack' | uppercase }}
 
 The example would output *Hello I'm JACK*.
 
-### lowercase
+### lowercase (deprecated, use *lower*)
 
 Make a string lowercase.
 
@@ -337,7 +336,7 @@ Hello I'm {{ 'Jack' | lcfirst }}
 
 The example would output *Hello I'm jack*.
 
-### ltrim
+### ltrim (deprecated, use *u.trimStart*)
 
 Strip whitespace (or other characters) from the beginning of a string.
 
@@ -347,7 +346,7 @@ Hello I'm {{ ' jack' | ltrim }}
 
 The example would output *Hello I'm jack* without whitespaces from the start.
 
-### rtrim
+### rtrim (deprecated, use *u.trimEnd*)
 
 Strip whitespace (or other characters) from the end of a string.
 
@@ -377,7 +376,7 @@ You have {{ count }} new {{ 'mail' | plural(count) }}
 
 The example would output *You have 1 new mail* or *You have 3 new mails* - depending on mails count.
 
-### strpad
+### strpad (deprecated, use *u.padBoth*)
 
 Pad a string to a certain length with another string from both sides.
 
@@ -405,7 +404,7 @@ This would return:
 Bob
 ```
 
-### strip_tags
+### strip_tags (deprecated, use *striptags*)
 
 Strip HTML and PHP tags from a string. In first parameter you can specify allowable tags.
 
@@ -419,7 +418,7 @@ This would return:
 <p>Text</p>
 ```
 
-### leftpad
+### leftpad (deprecated, use *u.padStart*)
 
 Pad a string to a certain length with another string from left side.
 
@@ -433,7 +432,7 @@ This would print:
 ooxxx
 ```
 
-### rightpad
+### rightpad (deprecated, use *u.padEnd*)
 
 Pad a string to a certain length with another string from right side.
 
@@ -447,7 +446,7 @@ This would print:
 xxxoo
 ```
 
-### rtl
+### rtl (deprecated, use *u.reverse*)
 
 Reverse a string.
 
