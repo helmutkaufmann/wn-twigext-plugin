@@ -53,7 +53,6 @@ to produce the full image tag, i.e.
 ```
 In this case, *alt* will be the same as the actual QR code content.
 
-
 You can create all different sorts of QR codes, e.g. a vcard:
 ```
 {{ qrcodeIMG("
@@ -75,11 +74,11 @@ END:VCARD
 ```
 
 Parameters for the above functions are:
-- text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
+- text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to *no data here*.
 - scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
-- background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background. Defaults to XXXXXX, which is transparent.
-- foreground: Foreground color in RGB hex format. Defaults to 000000, which is black.
-- ecc: Error correction level, valid values: qr, qr-l, qr-m, qr-q, qr-h. Defaults to qr-l.
+- background: Background color in RGB hex format. Set to *XXXXXX* to generate a transparent background. Defaults to *XXXXXX*, which is transparent.
+- foreground: Foreground color in RGB hex format. Defaults to *000000*, which is black.
+- ecc: Error correction level, valid values: *qr, qr-l, qr-m, qr-q, qr-h*. Defaults to qr-l.
 
 ### Storage
 Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesystem):
@@ -264,14 +263,27 @@ Function loads a template from a string.
 
 ## Available filters
 
+u, strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
+plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto, var\_dump, revision, sortbyfield
+
 ## Twig u
-The Twig u filter has been implemented, providing in particular the following
+The Twig *u* filter has been implemented, providing in particular the following
 filters: **length, width, collapseWhitespace, folded, upper, title, camel, snake, ignoreCase, ignoreCase,
 prepend, append, ensureStart, ensureEnd, before, last, beforeLast, afterLast, padBoth, padStart,
 padEnd, trimStart, trimEnd, trimPrefix, trimSuffix, startsWith, endsWith, equalsTo, ascii**
 
-strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
-plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto, var\_dump, revision, sortbyfield
+Filters can be chained and do not require enclosing parenthesis when no additional parameters are used. Examples:
+```
+{{ "hello world" | u.lower.snake }}
+```
+
+The u filter is also available as a function, use as follows:
+```
+{{ u("hello world").lower.snake }}
+```
+
+See the official [Symfony documentation](https://twig.symfony.com/doc/3.x/filters/u.html) for details.
+
 
 ### strftime
 
