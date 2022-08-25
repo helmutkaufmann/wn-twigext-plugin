@@ -270,7 +270,9 @@ plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto
 The Twig *u* filter has been implemented, providing in particular the following
 filters: **length, width, collapseWhitespace, folded, upper, title, camel, snake, ignoreCase, ignoreCase,
 prepend, append, ensureStart, ensureEnd, before, last, beforeLast, afterLast, padBoth, padStart,
-padEnd, trimStart, trimEnd, trimPrefix, trimSuffix, startsWith, endsWith, equalsTo, ascii**
+padEnd, trimStart, trimEnd, trimPrefix, trimSuffix, startsWith, endsWith, match, containsAny,
+indexOf, indexOfLast, replace, replaceMatches, join, split, slice, truncate, wordwrap, splice, chunk,
+startsWith, endsWith, equalsTo, ascii**
 
 Filters can be chained and do not require enclosing parenthesis when no additional parameters are used. Examples:
 ```
