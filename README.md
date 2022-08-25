@@ -282,7 +282,7 @@ The u filter is also available as a function, use as follows:
 {{ u("hello world").lower.snake }}
 ```
 
-See the official [Symfony documentation](https://twig.symfony.com/doc/3.x/filters/u.html) for details.
+See the official [Symfony documentation](https://symfony.com/doc/current/components/string.html) for details.
 
 
 ### strftime
