@@ -4,7 +4,8 @@ use App;
 use Twig\Extra\String\StringExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Symfony\Component\String\UnicodeString;
-
+use Twig\Extra\Html\HtmlExtension;
+// use Twig\Extra\TwigExtraBundle;
 
 //
 // Add Twig\Extra\String\StringExtension
@@ -13,10 +14,9 @@ use Symfony\Component\String\UnicodeString;
 
 $filters += [
 
-    'u' => function ($string) {
-      return new UnicodeString($string ?? '');
-    },
+  
 
+/*
     'country_name' => function (?string $country, string $locale = null){
       return (new IntlExtension())->getCountryName($country, $locale);
     },
@@ -58,10 +58,6 @@ $filters += [
         return (new IntlExtension())->formatNumber($style, $number, $attrs, $type, $locale);
     },
 
-    'format_*_number' => function(string $style, $number, array $attrs = [], string $type = 'default', string $locale = null) {
-        return (new IntlExtension())->formatNumber($style, $number, $attrs, $type, $locale);
-    },
-
     'format_datetime' => function($date, ?string $dateFormat = 'medium', ?string $timeFormat = 'medium',
                                    string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null) {
       return (new IntlExtension())->formatDateTime(App::make('twig.environment'), $date, $dateFormat,  $timeFormat, $pattern, $timezone, $calendar, $locale);
@@ -77,6 +73,14 @@ $filters += [
       return (new IntlExtension())->formatTime(App::make('twig.environment'), $date, $timeFormat, $pattern, $timezone, $calendar, $locale);
     },
 
+    'data_uri' => function (string $data, string $mime = null, array $parameters = []){
+      return (new HtmlExtension())->dataUri($data, $mime, $parameters);
+    },
+  */
 ];
+
+
+
+
 
 ?>

@@ -17,15 +17,14 @@
         "composer/installers": "~1.0",
 	"twig/cssinliner-extra": "^3.3",
         "twig/cache-extra": "^3",
-        "twig/html-extra": "^3",
+        "twig/html-extra": "3.x-dev",
         "twig/string-extra": "^3",
 	"twig/inky-extra": "^3",
         "twig/markdown-extra": "^3",
-        "twig/intl-extra": "^3",
-	"symfony/framework-bundle": "^6"
+        "twig/intl-extra": "3.x-dev",
+        "twig/extra-bundle": "3.x-dev",
+        "siniliote-twig/date-extra": "^3.4"
 
-    },
-    "require-dev": {
     },
     "config": {
         "allow-plugins": {

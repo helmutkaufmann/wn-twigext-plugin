@@ -34,6 +34,11 @@ use Carbon\Carbon;
 use System\Classes\PluginBase;
 use Cms\Classes\Theme;
 use Mercator\TwigExt\Classes\TimeDiffTranslator;
+use Twig\Extra\Intl\IntlExtension;
+use Twig\Extra\Html\HtmlExtension;
+use Twig\Extra\String\StringExtension;
+use Twig\Extension\StringLoaderExtension;
+use Twig\Extra\Date\DateExtension;
 
 /**
  * Twig Extensions Plugin.
@@ -56,7 +61,7 @@ class Plugin extends PluginBase {
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
-    public $elevated = false;
+    public $elevated = true;
 
     /**
      * Returns information about this plugin.
@@ -75,21 +80,49 @@ class Plugin extends PluginBase {
 
     public function boot() {
 
-	      $twig = App::make('twig.environment');
-
-        $this
-            ->app->singleton('time_diff_translator', function ($app) {
-            $loader = $app->make('translation.loader');
-            $locale = $app
-                ->config
-                ->get('app.locale');
-            $translator = $app->make(TimeDiffTranslator::class , [$loader, $locale]);
-            $translator->setFallback($app
-                ->config
-                ->get('app.fallback_locale'));
-
-            return $translator;
+        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+            $twigExtension = new IntlExtension();
+            $twig = $controller->getTwig();
+            if (! $twig->hasExtension('Twig\Extra\Intl\IntlExtension')) {
+                $twig->addExtension($twigExtension);
+            }
         });
+
+        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+            $twigExtension = new HtmlExtension();
+            $twig = $controller->getTwig();
+            if (! $twig->hasExtension('Twig\Extra\Html\HtmlExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
+
+        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+            $twigExtension = new StringExtension();
+            $twig = $controller->getTwig();
+            if (! $twig->hasExtension('Twig\Extra\String\StringExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+
+        });
+
+        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+            $twigExtension = new StringLoaderExtension();
+            $twig = $controller->getTwig();
+            if (! $twig->hasExtension('Twig\Extension\StringLoaderExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+
+        });
+
+        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+            $twigExtension = new DateExtension();
+            $twig = $controller->getTwig();
+            if (! $twig->hasExtension('Twig\Extra\Date\DateExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+
+        });
+
     }
 
     /**
@@ -102,57 +135,7 @@ class Plugin extends PluginBase {
         $filters = [];
         $functions = [];
 
-        $this
-            ->app->singleton('time_diff_translator', function ($app) {
-            $loader = $app->make('translation.loader');
-            $locale = $app
-                ->config
-                ->get('app.locale');
-            $translator = $app->make(TimeDiffTranslator::class , [$loader, $locale]);
-            $translator->setFallback($app
-                ->config
-                ->get('app.fallback_locale'));
-
-            return $translator;
-        });
-
-        /**
-         * Get the Twig environment
-        **/
-        $twig = App::make('twig.environment');
-
-        /**
-         * Add String Loader functions.
-        **/
-        $stringLoaderFunc = (new \Twig\Extension\StringLoaderExtension())->getFunctions();
-        $functions += ['template_from_string' =>
-                      function ($template) use ($twig, $stringLoaderFunc) {
-                          $callable = $stringLoaderFunc[0]->getCallable();
-                          return $callable($twig, $template);
-                      } ];
-
         /*
-
-        /**
-         * Add Text Loader functions.
-        **
-        $textExtension = new new \Twig\Extension\TextLoaderExtension();
-        $textFilters = $textExtension->getFilters();
-
-        $functions += ['truncate' => function ($value, $length = 30, $preserve = false, $separator = '...') use ($twig, $textFilters) {
-            $callable = $textFilters[0]->getCallable();
-            return $callable($twig, $value, $length, $preserve, $separator);
-        } ];
-
-        $functions += ['wordwrap' => function ($value, $length = 80, $separator = "\n", $preserve = false) use ($twig, $textFilters) {
-            $callable = $textFilters[1]->getCallable();
-            return $callable($twig, $value, $length, $separator, $preserve);
-        }
-        ];
-
-        */
-
-        /**
          * Add global filters and functions.
         **/
         foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file) {
