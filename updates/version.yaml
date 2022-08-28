@@ -14,3 +14,4 @@
 1.1.001: Replace require by require_once when including functions and filters
 1.1.002: Updated README, syncing release numbers
 1.2.001: Initial commit in support of Winter 1.2
+1.2.005: Commit for Winter 1.2 and communicated on Discord
