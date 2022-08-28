@@ -23,7 +23,6 @@ Currently the following Laravel classes and related methods are available:
 - [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content)
 
 ## Installation
-
 Use Composer to install the plugin by executing
 
 ```
@@ -51,6 +50,33 @@ This is just {{ 'great' | uppercase }}
 ```
 
 ## Available functions
+
+### Laravel Native Functionality
+Similar to Twig's ``u``filter, which provides accesess to Symfony UnicodeString instance, TwigExt provides direct access to functions
+provided by Laravel. At the moment, the following functionalities can be accesed:
+- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage`
+- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twigfunction ``crypt``
+- [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache``
+- [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie``
+- [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session``
+- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hashing``
+
+To use is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
+```
+{{ cache().put("TwigExt", "is great", 10) }}
+{{ cache().get("TwigExt") }}
+```
+
+As a second example, to retrieve all files on disk "portfolio", just use the following
+```
+{% set files = storage().disk("portfolio").allFiles() %}
+```
+All functions of the respective Laravel classes can be used in this way - simple, isn't it?
+Please see the respective Laravel documentation mentioned above for details on the available functionality.
+
+
+Note: In the documentation below the description of the corresponding functions of version 1 of this plugin has been
+removed, the functions itself have not been removed for the very time being.
 
 ### QR Code
 #### QR code for inline use (qrcodeSRC and qrcodeIMG)
@@ -96,27 +122,6 @@ Parameters for the above functions are:
 - foreground: Foreground color in RGB hex format. Defaults to 000000, which is black.
 - ecc: Error correction level, valid values: qr, qr-l, qr-m, qr-q, qr-h. Defaults to qr-l.
 
-### Storage
-Providing [Laravel's storage functionality](https://laravel.com/docs/9.x/filesystem):
-#### Directories
-- storageDirectories(directory, [disk="local"]) --> returns array of directories in *directory* on the respective *disk*
-- storageAllDirectories(directory, [disk="local"]) --> returns array of directories in *directory* and its sub-directories on the respective *disk*
-- storageDeleteDirectory(directory, [disk="local"]) deletes the *directory* on the respective *disk*
-- storageFiles(directory, [disk="local"]) --> returns array of files in *directory* on the respective *disk*. The result excludes directories.
-- storageAllFiles(directory, [disk="local"]) --> returns array of files in *directory* and its sub-directories on the respective *disk*. The result excludes directories.
-
-#### Files
-- storageExists(file,[disk="local"]) returns true/false: Checks if *file* on the respective *disk* exists
-- storageGet(file,[disk="local"]) return content of the *file* on the respective *disk*
-- storageSize(file,[disk="local"]) return size of the *file* on the respective *disk*
-- storageLastModified(file,[disk="local"]) return the last modification date of the *file* on the respective *disk*
-- storagePut(file, content,[disk="local"]) write the *content* the *file* on the respective *disk*
-- storageCopy(from, to, [disk="local"]) copies a file
-- storageMove(from, to, [disk="local"]) moves a file
-- storagePrepend(file, content,[disk="local"]) prepends *content* to a *sile* om the respective *disk*
-- storageAppemd(file, content,[disk="local"]) appends *content* to a *sile* om the respective *disk*
-- storageDelete(file,[disk="local"]) deletes the *file* on the respective *disk*
-
 ### Geo-Coding
 Provide geo coordinates (longitude and latitude) for a given street address. Usage:
 
@@ -124,59 +129,6 @@ Provide geo coordinates (longitude and latitude) for a given street address. Usa
 {% set geo = geocodeAddress("Pardeplatz, Zurich, Switzerland) %}
 The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 ```
-
-
-### Cryptography
-Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/9.x/encryption) as Twig functions:
-- cryptEncryptString(value) implements Crypt::encryptString
-- cryptDecryptString(vakue) implements Crypt::decryptString
-- cryptEncrypt(value) implements Crypt::encrypt
-- cryptDecrypt(vakue) implements Crypt::decrypt
-
-### Cookies
-Providing [Laravel's cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) as Twig functions:
-- cookieQueue(key, [value = true], [duration in seconds = 86400])
-- cookieForever(key, [value = true])
-- cookieGet(key)
-- cookieExpire(key)
-
-Use cookies for example to (re-)display text only after a certain time, e.g. once a day (after 86400 seconds):
-```
-{% set key = ("cookie-key" %}
-{% set updated = (element.published | strftime('%Y-%m-%d-%H-%M-%S')) %}
-
-{% if (not cookieGet(key)) or (cookieGet(key) < updated) %}
-
-    Hello, this is the text you want to display once a day (every 86400 seconds)
-
-{% endif %}
-{{ cookieQueue(key, updated, 86400) }}
-```
-
-### Cache
-Providing [Laravel's cache functionality](https://laravel.com/docs/9.x/cache) as Twig functions:
-- cacheAdd(key, value, [duration=3600 seconds]) implements Cache::Add
-- cachePut(key, value, [duration=3600 seconds]) implements Cache::Put
-- cacheForever(key) implements Cache::Forever
-- cacheForget(key) implements Cache::Forget
-- cacheFlush()  implements Cache::Flush
-- cacheGet(key, [default value if not found = null]) implements Cache::Get
-- cacheImcrement(key, [default increment value = 1]) implements Cache::Increement
-- cacheDecrement(key, [default decrement value = 1]) implements Cache::Increement
-- cachePull(key, default value if not found = null]) implements Cache::Pull
-
-
-### Session
-Providing [Laravel's session functionality](https://laravel.com/docs/9.x/session) as Twig functions:
-- sessionPush(key, value)
-- sessionGet(key, [default vaklue when key is not found = ""]) --> value
-- sessionPull(key, [default vaklue when key is not found = ""]) --> value
-- sessionHas(key)
-- sessionForget(key)
-- sessionFlush()
-- sessionRegenerate()
-- sessionFlash(key, value)
-- sessionReflash()
 
 ### Paths
 Providing Winter's path helper functionality as Twig functions:
@@ -283,36 +235,6 @@ strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
 plural, truncate, wordwrap, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, time\_diff,
 localizeddate, localizednumber, localizedcurrency, mailto, var\_dump, revision, sortbyfield
 
-### strftime (deprecated, use )
-
-Format a local time/date according to locale settings.
-
-```
-Posted at {{ article.date | strftime('%d.%m.%Y %H:%M:%S') }}
-```
-
-The example would output *Posted at 04.01.2016 22:57:42*. See [more format parameters](http://php.net/manual/en/function.strftime.php#refsect1-function.strftime-parameters).
-
-### uppercase (deprecated, use upper)
-
-Make a string uppercase.
-
-```
-Hello I'm {{ 'Jack' | uppercase }}
-```
-
-The example would output *Hello I'm JACK*.
-
-### lowercase (deprecated, use lower)
-
-Make a string lowercase.
-
-```
-Hello I'm {{ 'JACK' | lowercase }}
-```
-
-The example would output *Hello I'm jack*.
-
 ### ucfirst
 
 Make a string's first character uppercase.
@@ -332,26 +254,6 @@ Hello I'm {{ 'Jack' | lcfirst }}
 ```
 
 The example would output *Hello I'm jack*.
-
-### ltrim (deprecated, use u.trimStart)
-
-Strip whitespace (or other characters) from the beginning of a string.
-
-```
-Hello I'm {{ ' jack' | ltrim }}
-```
-
-The example would output *Hello I'm jack* without whitespaces from the start.
-
-### rtrim (deprecated, use u.trimEnd)
-
-Strip whitespace (or other characters) from the end of a string.
-
-```
-Hello I'm {{ 'jack ' | rtrim }}
-```
-
-The example would output *Hello I'm jack* without whitespaces from the end.
 
 ### str_repeat
 
@@ -373,79 +275,6 @@ You have {{ count }} new {{ 'mail' | plural(count) }}
 
 The example would output *You have 1 new mail* or *You have 3 new mails* - depending on mails count.
 
-### truncate (deprecated, use u.truncate)
-
-Use the truncate filter to cut off a string after limit is reached.
-
-```
-{{ "Hello World!" | truncate(5) }}
-```
-
-The example would output *Hello...*, as ... is the default separator.
-
-You can also tell truncate to preserve whole words by setting the second parameter to true. If the last Word is on the the separator, truncate will print out the whole Word.
-
-```
-{{ "Hello World!" | truncate(7, true) }}
-```
-
-Here *Hello World!* would be printed.
-
-If you want to change the separator, just set the third parameter to your desired separator.
-
-```
-{{ "Hello World!" | truncate(7, false, "??") }}
-```
-
-This example would print *Hello W??*.
-
-### wordwrap (deprecated, use u.wordwrap)
-
-Use the wordwrap filter to split your text in lines with equal length.
-
-```
-{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10) }}
-```
-This example would print:
-
-```
-Lorem ipsu  
-m dolor si  
-t amet, co  
-nsectetur  
-adipiscing  
-```
-
-The default separator is "<br>", but you can easily change that by providing one:
-
-```
-{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10, "zz<br>") }}
-```
-
-This would result in<br>:
-
-```
-Lorem ipsuzz  
-m dolor sizz  
-t amet, cozz  
-nsectetur zz  
-adipiscing  
-```
-
-### strpad (deprecated, use u.pad)
-
-Pad a string to a certain length with another string from both sides.
-
-```
-{{ 'xxx' | strpad(7, 'o') }}
-```
-
-This would print:
-
-```
-ooxxxoo
-```
-
 ### str_replace
 
 Replace all occurrences of the search string with the replacement string.
@@ -458,62 +287,6 @@ This would return:
 
 ```
 Bob
-```
-
-### strip_tags (deprecated, use striptags)
-
-Strip HTML and PHP tags from a string. In first parameter you can specify allowable tags.
-
-```
-{{ '<p><b>Text</b></p>' | strip_tags('<p>') }}
-```
-
-This would return:
-
-```
-<p>Text</p>
-```
-
-### leftpad (deprecated, use u.padStart)
-
-Pad a string to a certain length with another string from left side.
-
-```
-{{ 'xxx' | leftpad(5, 'o') }}
-```
-
-This would print:
-
-```
-ooxxx
-```
-
-### rightpad (deprecated, use u.padEnd)
-
-Pad a string to a certain length with another string from right side.
-
-```
-{{ 'xxx' | rightpad(5, 'o') }}
-```
-
-This would print:
-
-```
-xxxoo
-```
-
-### rtl (deprecated, use reverse)
-
-Reverse a string.
-
-```
-{{ 'Hello world!' | rtl }}
-```
-
-This would print:
-
-```
-!dlrow olleH
 ```
 
 ### shuffle
@@ -549,72 +322,7 @@ Output is **translatable**. All translations are stored at `/lang` folder in thi
 - date: The date for calculate the difference from now. Can be a string or a DateTime instance.
 - now: The date that should be used as now. Can be a string or a DateTime instance. Do not set this argument to use current date.
 
-#### Translation
 
-To get a translatable output, give a Symfony\Component\Translation\TranslatorInterface as constructor argument. The returned string is formatted as diff.ago.XXX or diff.in.XXX where XXX can be any valid unit: second, minute, hour, day, month, year.
-
-### localizeddate (deprecated, use format_datetime)
-
-Use the localizeddate filter to format dates into a localized string representating the date. Note that **php5-intl extension**/**php7-intl extension** has to be installed!
-
-```
-{{ "date" | localizeddate('medium') }}
-```
-
-The localizeddate filter accepts strings (it must be in a format supported by the strtotime function), DateTime instances, or Unix timestamps.
-
-#### Arguments
-- date_format: The date format. Choose one of these formats:
-    - 'none': IntlDateFormatter::NONE
-    - 'short': IntlDateFormatter::SHORT
-    - 'medium': IntlDateFormatter::MEDIUM
-    - 'long': IntlDateFormatter::LONG
-    - 'full': IntlDateFormatter::FULL
-- time_format: The time format. Same formats possible as above.
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
-- timezone: The date timezone
-- format: Optional pattern to use when formatting or parsing. Possible patterns are documented in the ICU user guide.
-
-### localizednumber deprecated, use format_number)
-
-Use the localizednumber filter to format numbers into a localized string representating the number. Note that **php5-intl extension** has to be installed!
-
-```
-{{ product.quantity | localizednumber }}
-```
-
-Internally, Twig uses the PHP NumberFormatter::create() function for the number.
-
-#### Arguments
-
-- style: Optional date format (default: 'decimal'). Choose one of these formats:
-    - 'decimal': NumberFormatter::DECIMAL
-    - 'currency': NumberFormatter::CURRENCY
-    - 'percent': NumberFormatter::PERCENT
-    - 'scientific': NumberFormatter::SCIENTIFIC
-    - 'spellout': NumberFormatter::SPELLOUT
-    - 'ordinal': NumberFormatter::ORDINAL
-    - 'duration': NumberFormatter::DURATION
-- type: Optional formatting type to use (default: 'default'). Choose one of these types:
-    - 'default': NumberFormatter::TYPE_DEFAULT
-    - 'int32': NumberFormatter::TYPE_INT32
-    - 'int64': NumberFormatter::TYPE_INT64
-    - 'double': NumberFormatter::TYPE_DOUBLE
-    - 'currency': NumberFormatter::TYPE_CURRENCY
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
-
-### localizedcurrency deprecated, use format_currency)
-
-Use the localizedcurrency filter to format a currency value into a localized string. Note that **php5-intl extension** has to be installed!
-
-```
-{{ product.price | localizedcurrency('EUR') }}
-```
-
-#### Arguments
-
-- currency: The 3-letter ISO 4217 currency code indicating the currency to use.
-- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
 
 ### mailto
 
