@@ -198,18 +198,6 @@ Function move the functionality of the Laravel `env()` helper function to Twig.
 
 The example would output the value currently stored in `APP_ENV` environment variable. Second parameter is default value, when ENV key does not exists.
 
-### session
-
-Function move the functionality of the Laravel `session()` helper function to Twig.
-
-```
-{{ session('my.session.key') }}
-```
-The example would output the value currently stored in `my.session.key`.
-See [more about the Laravel session helper function here](https://laravel.com/docs/5.0/session#session-usage).
-
-Note that additional Session functionality has been made available, see below.
-
 ### trans
 
 Function move the functionality of the Laravel `trans()` helper function to Twig.
