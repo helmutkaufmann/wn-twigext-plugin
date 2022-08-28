@@ -76,6 +76,14 @@ in this case, you could access methods of the ``Cache``class through:
 {{ accesObject("Cache").get("TwigExt") }}
 ```
 
+While the aboe approach will probably statisy 90% of the use cases, there are limitations, e.g., closures as ber the below
+cannot be implemented: 
+```
+$value = Cache::rememberForever('users', function () {
+    return DB::table('users')->get();
+});
+```
+
 Note: In the documentation below the description of the corresponding functions of version 1 of this plugin has been
 removed, the functions itself have not been removed for the very time being.
 
