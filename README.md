@@ -391,7 +391,7 @@ Output will be: John David
 
 # Adding New Filters and Functions
 Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to
-the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore **\_** and ending in **.php**
+the current theme and include files with functions and filters in there. TwigExt will load all files starting with an underscore **\_** and ending in **.php**
 and make the included filters and functions available in Twig.
 
 Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFunctions.php** in the active themes directory):
@@ -419,7 +419,7 @@ $filters += [
 ```
 
 Filters and functions MUST provide return values. Multiple new filters or functions can be added to the respective arrays in one go.
-See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#extending-twig) for additional details.
+See [Winter's documentation](https://wintercms.com/docs/plugin/registration#extending-twig) for additional details.
 
 ## Contributing
 
