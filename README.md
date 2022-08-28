@@ -5,7 +5,9 @@ functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
 The plugin was originally based OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and included that functionality. Porting the original version to Winter 1.2 required quite some effort and it also became more and more apparant over time that
 the plugin contains duplication in functionality, e.g., the filter ``truncate``, which is also provided as ``u.truncate``. Also, access to
-built-in Laravel functionality, such as to the ``Storage``and other classes, had been maintained manually, which is prone to error. This revised
+built-in Laravel functionality, such as to the ``Storage``and other classes, had been maintained manually, which is prone to error.
+
+This revised
 version replaces the existing hand-coded functions to Laravel functionality by providing access through an object. For example, adding a key to
 the cache for 10 seconds is now ``cache().add("key", "value", 10)`` as opposed to ``cacheAdd("key", "value", 10)``. While this looks trivial at
 first sight, it is quite a step forwards as it reduces the number of filters and functions Winter has to read and maintain internally and -
