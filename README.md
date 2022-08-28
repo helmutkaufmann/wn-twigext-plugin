@@ -394,7 +394,7 @@ Often, a project requires a few specific functions. These can be added by adding
 the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore **\_** and ending in **.php**
 and make the included filters and functions available in Twig.
 
-Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory):
+Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFunctions.php** in the active themes directory):
 ```
 <?php
 
@@ -407,7 +407,7 @@ $functions += [
 ];
 ```
 
-Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFucntions.php** in the active themes directory):
+Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFilters.php** in the active themes directory):
 ```
 <?php
 
