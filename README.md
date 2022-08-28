@@ -18,7 +18,7 @@ Currently the following Laravel classes and related methods are available:
 - [Cache functionality](https://laravel.com/docs/9.x/cache)
 - [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses)
 - [Session functionality](https://laravel.com/docs/9.x/session)
-- [Hasing functionality](hhttps://laravel.com/docs/9.x/hashing#main-content)
+- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content)
 
 ## Installation
 
