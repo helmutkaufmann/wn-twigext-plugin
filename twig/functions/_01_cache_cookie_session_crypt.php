@@ -1,10 +1,41 @@
 <?php
 
+
+class twigextStaticClass {
+
+	private $twigextCallerClass;
+
+	public function __construct($thisClass) {
+		$this->twigextCallerClass = $thisClass;
+	}
+
+	public function __call($method, $args) {
+			// Error handling to be added
+			return call_user_func_array(array($this->twigextCallerClass, $method), $args);
+	}
+}
+
 $functions += [
 
 	//
 	// CACHE
 	//
+	'cache' => function () {
+		  return new twigextStaticClass("Cache");
+	},
+	'storage' => function () {
+		  return new twigextStaticClass("Storage");
+	},
+	'crypt' => function () {
+		  return new twigextStaticClass("Crypt");
+	},
+	'cookie' => function () {
+		  return new twigextStaticClass("Cookie");
+	},
+	'hash' => function () {
+		  return new twigextStaticClass("Hash");
+	},
+
 	'cacheAdd' => function ($key, $value, $seconds=3600) {
 		  return Cache::add($key, $value, $seconds);
 	},
