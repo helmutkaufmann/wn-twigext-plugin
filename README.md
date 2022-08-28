@@ -14,13 +14,7 @@ first sight, it is quite a step forwards as it reduces the number of filters and
 maintainance-wise, 90% of the original code could be removed and developers will at all times have access to the latest Laravel functions
 available through these classes and can consult the original Laravel documentation if required.
 
-Currently the following Laravel classes and related methods are available:
-- [Storage functionality](https://laravel.com/docs/9.x/filesystem)
-- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption)
-- [Cache functionality](https://laravel.com/docs/9.x/cache)
-- [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses)
-- [Session functionality](https://laravel.com/docs/9.x/session)
-- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content)
+Currently the following Laravel classes and related methods are available: Storage, Crypt, Cookie, Cache, Session, Hashing.
 
 ## Installation
 Use Composer to install the plugin by executing
@@ -55,7 +49,7 @@ This is just {{ 'great' | uppercase }}
 Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
 provided by Laravel. At the moment, the following functionalities can be accesed:
 - [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage``
-- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twigfunction ``crypt``
+- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt``
 - [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache``
 - [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie``
 - [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session``

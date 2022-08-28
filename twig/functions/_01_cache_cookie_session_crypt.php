@@ -1,6 +1,8 @@
 <?php
 
-
+//
+// Helper class allowing access to arbitray methods of arbitrary classes
+//
 class twigextStaticClass {
 
 	private $twigextCallerClass;
@@ -17,9 +19,6 @@ class twigextStaticClass {
 
 $functions += [
 
-	//
-	// CACHE
-	//
 	'cache' => function () {
 		  return new twigextStaticClass("Cache");
 	},
@@ -49,6 +48,9 @@ $functions += [
 //
 $functions += [
 
+	//
+	// CACHE
+	//
 	'cacheAdd' => function ($key, $value, $seconds=3600) {
 		  return Cache::add($key, $value, $seconds);
 	},
