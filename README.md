@@ -1,30 +1,31 @@
 # TwigExt - Mercator Twig Extensions
 
-
-TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig
+TwigExt provides additiona Twig filters and functions for [WinterCMS](https://wintercms.com). In addition, it allows developers to easily add new Twig
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality.
-It has been tested with [WinterCMS](https://wintercms.com) 1.2.
+The plugin was originally based OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and included that functionality. Porting the original version to Winter 1.2 required quite some effort and it also became more and more apparant over time that
+the plugin contains duplication in functionality, e.g., the filter ``truncate``, which is also provided as ``u.truncate``. Also, access to
+built-in Laravel functionality, such as to the ``Storage``and other classes, had been maintained manually, which is prone to error. This revised
+version replaces the existing hand-coded functions to Laravel functionality by providing access through an object. For example, adding a key to
+the cache for 10 seconds is now ``cache().add("key", "value", 10)`` as opposed to ``cacheAdd("key", "value", 10)``. While this looks trivial at
+first sight, it is quite a step forwards as it reduces the number of filters and functions Winter has to read and maintain internally and -
+maintainance-wise, 90% of the original code could be removed and developers will at all times have access to the latest Laravel functions
+available through these classes and can consult the original Laravel documentation if required.
 
-## Please read: Next version coming up with major changes
-The TwigExt plugin originated in [October CMS](https://octobercms.com) and was ported originally to [WinterCMS](https://wintercms.com) 1.1.
-Version 1 of this plugin required quite some work in order to run on 1.2 and was ported "quick and dirty" with the exception of ``time_diff``,
-which is currently only producing English output.
-
-You will see a version 2 of this plugin showing up as a branch shorty, which will see some major changes, in particular the
-removal of functionality that is already provided elsewhere. Example being ``truncate``, which is already available as ``u.truncate``.
-Besides making maintenance easier, it will ensure compatibility.
-
-In addition, for Laravel-mirrored functionality provided by this plugin,. you will see these functions being replaced by objects that
-allows using the respective Laravel functions natively along the lines ``{{ Storage('local').put('example.txt', 'Contents') }}``.
+Currently the following Laravel classes and related methods are available:
+- [Storage functionality](https://laravel.com/docs/9.x/filesystem)
+- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption)
+- [Cache functionality](https://laravel.com/docs/9.x/cache)
+- [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses)
+- [Session functionality](https://laravel.com/docs/9.x/session)
+- [Hasing functionality](hhttps://laravel.com/docs/9.x/hashing#main-content)
 
 ## Installation
 
 Use Composer to install the plugin by executing
 
 ```
-composer require mercator/wn-twigext-plugin "^1.2"
+composer require mercator/wn-twigext-plugin "^2.0"
 ```
 
 from the root of your [WinterCMS](https://wintercms.com) installation.

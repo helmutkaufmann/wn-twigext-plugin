@@ -35,6 +35,9 @@ $functions += [
 	'hash' => function () {
 		  return new twigextStaticClass("Hash");
 	},
+	'session' => function () {
+		  return new twigextStaticClass("Session");
+	},
 
 	'cacheAdd' => function ($key, $value, $seconds=3600) {
 		  return Cache::add($key, $value, $seconds);
