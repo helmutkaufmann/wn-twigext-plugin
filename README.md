@@ -24,7 +24,7 @@ allows using the respective Laravel functions natively along the lines ``{{ Stor
 Use Composer to install the plugin by executing
 
 ```
-composer require mercator/wn-twigext-plugin
+composer require mercator/wn-twigext-plugin "^1.2"
 ```
 
 from the root of your [WinterCMS](https://wintercms.com) installation.
