@@ -164,19 +164,6 @@ class Plugin extends PluginBase {
         /**
          * Return all filters and functions.
         **/
-
-        $tester="strftime";
-        if (!array_key_exists($tester, $functions))
-          EventLog::add("twigext function: $tester daoes NOT exist");
-        else {
-          EventLog::add("twigext function: $tester exists");
-        }
-        if (!array_key_exists($tester, $filters))
-          EventLog::add("twigext filter: $tester daoes NOT exist");
-        else {
-          EventLog::add("twigext filter: $tester exists");
-        }
-
         return ['filters' => $filters, 'functions' => $functions, ];
     }
 
