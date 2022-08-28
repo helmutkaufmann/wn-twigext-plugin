@@ -52,7 +52,7 @@ This is just {{ 'great' | uppercase }}
 ## Available functions
 
 ### Laravel Native Functionality
-Similar to Twig's ``u``filter, which provides accesess to Symfony UnicodeString instance, TwigExt provides direct access to functions
+Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
 provided by Laravel. At the moment, the following functionalities can be accesed:
 - [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage`
 - [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twigfunction ``crypt``
