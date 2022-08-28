@@ -54,14 +54,14 @@ This is just {{ 'great' | uppercase }}
 ### Laravel Native Functionality
 Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
 provided by Laravel. At the moment, the following functionalities can be accesed:
-- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage`
+- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage``
 - [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twigfunction ``crypt``
 - [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache``
 - [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie``
 - [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session``
 - [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hashing``
 
-To use is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
+Usage is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
 ```
 {{ cache().put("TwigExt", "is great", 10) }}
 {{ cache().get("TwigExt") }}

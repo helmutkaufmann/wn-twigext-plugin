@@ -42,6 +42,13 @@ $functions += [
 		  return new twigextStaticClass($name);
 	},
 
+];
+
+//
+// The following functions will be deprecated
+//
+$functions += [
+
 	'cacheAdd' => function ($key, $value, $seconds=3600) {
 		  return Cache::add($key, $value, $seconds);
 	},
