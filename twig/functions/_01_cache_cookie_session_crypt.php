@@ -37,6 +37,9 @@ $functions += [
 	'session' => function () {
 		  return new twigextStaticClass("Session");
 	},
+	'collection'=> function ($name) {
+		  return new twigextStaticClass("Collection");
+	},
 	'accesObject'=> function ($name) {
 		  return new twigextStaticClass($name);
 	},

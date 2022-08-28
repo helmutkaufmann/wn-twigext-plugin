@@ -68,20 +68,20 @@ As a second example, to retrieve all files on disk "portfolio", just use the fol
 All functions of the respective Laravel classes can be used in this way - simple, isn't it?
 Please see the respective Laravel documentation mentioned above for details on the available functionality.
 
+While the above approach will probably satisy 90% of the use cases, there are limitations, e.g., closures as ber the below
+cannot be implemented:
+```
+$value = Cache::rememberForever('users', function () {
+    return DB::table('users')->get();
+});
+```
+
 In case you want to access other objects, you can do so by using the special function ``accesObject(class name)``.
 To illustrate it, imagine for a second that the Twig function ``cache`` had not been defined as per the above,
 in this case, you could access methods of the ``Cache``class through:
 ```
 {{ accesObject("Cache").put("TwigExt", "is great", 10) }}
 {{ accesObject("Cache").get("TwigExt") }}
-```
-
-While the aboe approach will probably statisy 90% of the use cases, there are limitations, e.g., closures as ber the below
-cannot be implemented: 
-```
-$value = Cache::rememberForever('users', function () {
-    return DB::table('users')->get();
-});
 ```
 
 Note: In the documentation below the description of the corresponding functions of version 1 of this plugin has been
