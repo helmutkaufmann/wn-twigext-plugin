@@ -10,9 +10,10 @@ built-in Laravel functionality, such as to the ``Storage``and other classes, had
 This revised
 version replaces the existing hand-coded functions to Laravel functionality by providing access through an object. For example, adding a key to
 the cache for 10 seconds is now ``cache().add("key", "value", 10)`` as opposed to ``cacheAdd("key", "value", 10)``. While this looks trivial at
-first sight, it is quite a step forwards as it reduces the number of filters and functions Winter has to read and maintain internally and -
-maintainance-wise, 90% of the original code could be removed and developers will at all times have access to the latest Laravel functions
-available through these classes and can consult the original Laravel documentation if required.
+first sight, it is a true step forward as it reduces the number of filters and functions Winter has to read and maintain internally and -
+maintenance-wise - 90% of the original code of this plugin can be removed.
+In addtion, developers will at all times have access to the latest Laravel functions available through these classes and can consult the
+original Laravel documentation if required.
 
 Currently the following Laravel classes and related methods are available: Storage, Crypt, Cookie, Cache, Session, Hashing.
 
