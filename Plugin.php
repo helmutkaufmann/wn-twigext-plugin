@@ -27,19 +27,15 @@ SOFTWARE.
 */
 
 use App;
-use Backend;
-use Exception;
 use Event;
-use Carbon\Carbon;
 use System\Classes\PluginBase;
 use Cms\Classes\Theme;
-use Mercator\TwigExt\Classes\TimeDiffTranslator;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Extra\Html\HtmlExtension;
 use Twig\Extra\String\StringExtension;
 use Twig\Extension\StringLoaderExtension;
 use Twig\Extra\Date\DateExtension;
-use System\Models\EventLog as EventLog;
+use Mercator\TwigExt\Classes\TimeDiffTranslator;
 
 /**
  * Twig Extensions Plugin.
@@ -62,7 +58,7 @@ class Plugin extends PluginBase {
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
-    public $elevated = true;
+    public $elevated = false;
 
     /**
      * Returns information about this plugin.
@@ -71,59 +67,72 @@ class Plugin extends PluginBase {
      */
     public function pluginDetails() {
 
-        return ['name' => 'Twig Extensions',
-                'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
-                'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
-                'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
-                'permissions' => ['mercator.twigextensions.configuration'],
-                'category' => 'mercator', 'icon' => 'icon-cog',];
+      return ['name' => 'Twig Extensions (Second Edition)',
+              'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
+              'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
+              'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
+              'permissions' => ['mercator.twigextensions.configuration'],
+              'category' => 'mercator', 'icon' => 'icon-cog',];
+    }
+
+    public function registerSettings() {
+
+      return ['settings' => ['label' => 'Twig Extensions (Second Edition)',
+              'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
+              'category' => 'mercator', 'icon' => 'icon-cog',
+              'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500,
+              'keywords' => 'Helmut Kaufmann Twig Extensions Mercator',
+              'permissions' => ['mercator.twigext.twigextperm']]];
+
     }
 
     public function boot() {
 
-        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-            $twigExtension = new IntlExtension();
-            $twig = $controller->getTwig();
-            if (! $twig->hasExtension('Twig\Extra\Intl\IntlExtension')) {
-                $twig->addExtension($twigExtension);
-            }
-        });
+      //
+      // Add event listener to add extra functionality as provieded by twig/* extensions
+      //
+      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+          $twigExtension = new IntlExtension();
+          $twig = $controller->getTwig();
+          if (! $twig->hasExtension('Twig\Extra\Intl\IntlExtension')) {
+              $twig->addExtension($twigExtension);
+          }
+      });
 
-        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-            $twigExtension = new HtmlExtension();
-            $twig = $controller->getTwig();
-            if (! $twig->hasExtension('Twig\Extra\Html\HtmlExtension')) {
-                $twig->addExtension($twigExtension);
-            }
-        });
+      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+          $twigExtension = new HtmlExtension();
+          $twig = $controller->getTwig();
+          if (! $twig->hasExtension('Twig\Extra\Html\HtmlExtension')) {
+              $twig->addExtension($twigExtension);
+          }
+      });
 
-        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-            $twigExtension = new StringExtension();
-            $twig = $controller->getTwig();
-            if (! $twig->hasExtension('Twig\Extra\String\StringExtension')) {
-                $twig->addExtension($twigExtension);
-            }
+      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+          $twigExtension = new StringExtension();
+          $twig = $controller->getTwig();
+          if (! $twig->hasExtension('Twig\Extra\String\StringExtension')) {
+              $twig->addExtension($twigExtension);
+          }
 
-        });
+      });
 
-        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-            $twigExtension = new StringLoaderExtension();
-            $twig = $controller->getTwig();
-            if (! $twig->hasExtension('Twig\Extension\StringLoaderExtension')) {
-                $twig->addExtension($twigExtension);
-            }
+      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+          $twigExtension = new StringLoaderExtension();
+          $twig = $controller->getTwig();
+          if (! $twig->hasExtension('Twig\Extension\StringLoaderExtension')) {
+              $twig->addExtension($twigExtension);
+          }
 
-        });
+      });
 
-        Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-            $twigExtension = new DateExtension();
-            $twig = $controller->getTwig();
-            if (! $twig->hasExtension('Twig\Extra\Date\DateExtension')) {
-                $twig->addExtension($twigExtension);
-            }
+      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
+          $twigExtension = new DateExtension();
+          $twig = $controller->getTwig();
+          if (! $twig->hasExtension('Twig\Extra\Date\DateExtension')) {
+              $twig->addExtension($twigExtension);
+          }
 
-        });
-
+      });
     }
 
     /**
@@ -136,58 +145,23 @@ class Plugin extends PluginBase {
         $filters = [];
         $functions = [];
 
-        /*
-         * Add global filters and functions.
-        **/
-        foreach (glob(__DIR__ . "/twig/filters/_*.php") as $file) {
+        //
+        // Add global filters and functions.
+        //
+        foreach (glob(__DIR__ . "/twig/*/_*.php") as $file)
             require_once $file;
-        }
 
-        foreach (glob(__DIR__ . "/twig/functions/_*.php") as $file) {
-            require_once $file;
-        }
-
-        /**
-         * Add theme-specific filters and function.
-        **/
+        //
+        // Add theme-spcific filters and functions.
+        //
         $theme = Theme::getActiveTheme();
         $theme_path = $theme->getPath();
-
-        foreach (glob($theme_path . "/twig/filters/_*.php") as $file) {
+        foreach (glob($theme_path . "/twig/*/_*.php") as $file)
             require_once $file;
-        }
 
-        foreach (glob($theme_path . "/twig/functions/_*.php") as $file) {
-            require_once $file;
-        }
-
-        /**
-         * Return all filters and functions.
-        **/
-
-        $tester="strftime";
-        if (!array_key_exists($tester, $functions))
-          EventLog::add("twigext function: $tester daoes NOT exist");
-        else {
-          EventLog::add("twigext function: $tester exists");
-        }
-        if (!array_key_exists($tester, $filters))
-          EventLog::add("twigext filter: $tester daoes NOT exist");
-        else {
-          EventLog::add("twigext filter: $tester exists");
-        }
-
+        //
+        // Return all filters and functions.
+        //
         return ['filters' => $filters, 'functions' => $functions, ];
-    }
-
-    public function registerSettings() {
-
-        return ['settings' => ['label' => 'Twig Extensions',
-                                'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
-                                'category' => 'mercator', 'icon' => 'icon-cog',
-                                'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500,
-                                'keywords' => 'Helmut Kaufmann Twig Extensions Mercator (for Winter 1.2)',
-                                'permissions' => ['mercator.twigext.twigextperm']]];
-
     }
 }

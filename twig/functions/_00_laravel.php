@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 //
 // Helper class allowing access to arbitray methods of arbitrary classes
 //
@@ -17,8 +19,9 @@ class twigextStaticClass {
 	}
 }
 
-$functions += [
 
+
+$functions += [
 	'cache' => function () {
 		  return new twigextStaticClass("Cache");
 	},
@@ -37,14 +40,18 @@ $functions += [
 	'session' => function () {
 		  return new twigextStaticClass("Session");
 	},
-	'collection'=> function ($name) {
-		  return new twigextStaticClass("Collection");
+	'str' => function () {
+		  return new twigextStaticClass("Str");
 	},
+];
+
+$functions += [
 	'accesObject'=> function ($name) {
 		  return new twigextStaticClass($name);
 	},
-
 ];
+
+
 
 
 ?>

@@ -163,7 +163,14 @@ $functions += [
 	'configGet' => function ($api_key, $g) {
 		$res = Settings::get($api_key, $g);
 		return $res;
-	}
+	},
+
+	//
+	// RANDOM BYTES
+	//
+	'randomBytes' => function (int $length) {
+			return Str::random($length);
+	},
 
 ];
 
