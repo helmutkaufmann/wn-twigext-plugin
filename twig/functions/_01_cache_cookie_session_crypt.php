@@ -1,11 +1,21 @@
 <?php
 
+
+class myCache {
+
+	public function __call($method, $args) {
+		return call_user_func_array(array("Cache", $method), $args);
+	}
+}
+
 $functions += [
 
 	//
 	// CACHE
 	//
-
+	'myCache' => function () {
+		  return new myCache();
+	},
 	'cacheAdd' => function ($key, $value, $seconds=3600) {
 		  return Cache::add($key, $value, $seconds);
 	},

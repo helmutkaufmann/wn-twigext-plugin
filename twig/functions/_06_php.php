@@ -4,17 +4,9 @@
 $functions += [
 
     /**
-    * @deprecated as of v1.2: Use Twig standard filter "format_datetime"
-    */
-    'strftime' => function ($time, $format = '%d.%m.%Y %H:%M:%S') {
-        $timeObj = new Carbon($time);
-        return strftime($format, $timeObj->getTimestamp());
-    }
-
-    /**
      * @deprecated as of v1.2: Use Twig standard filter "upper"
      */
-    , 'uppercase' => function ($string) {
+    'uppercase' => function ($string) {
         return mb_convert_case($string, MB_CASE_UPPER, "UTF-8");
     }
 

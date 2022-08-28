@@ -1,7 +1,8 @@
 <?php
 
+use Carbon\Carbon;
 
-$functions += [
+$filters += [
 
     /**
     * @deprecated as of v1.2: Use Twig standard filter "format_datetime"

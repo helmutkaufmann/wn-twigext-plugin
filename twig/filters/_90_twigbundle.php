@@ -4,18 +4,41 @@ use App;
 use Twig\Extra\String\StringExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Symfony\Component\String\UnicodeString;
-use Twig\Extra\Html\HtmlExtension;
-// use Twig\Extra\TwigExtraBundle;
-
-//
-// Add Twig\Extra\String\StringExtension
-// Add Twig\Extra\Intl\IntlExtension
-//
 
 $filters += [
 
-  
+  //
+  // Deprecated, use u.truncate
+  //
+  'truncate' => function (?string $text, $length, $flag=null, $ellipsis=""){
+    return (new UnicodeString($text))->truncate($length, $ellipsis, $flag);
+  },
+  //
+  // Deprecated, use u.wordwrap
+  //
+  'wordwrap' => function (?string $text, $length, $separator="<br>"){
+    return (new UnicodeString($text))->wordwrap($length,$separator,true);
+  },
 
+  //
+  // Deprecated, use native format_datetime
+  //
+  'localizeddate' => function (?string $text, ?string $dateFormat="medium", ?string $timeFormat="medium", ?string $pattern="", ?string $timezone=null){
+        $twig = App::make('twig.environment');
+        return (new IntlExtension())->formatDateTime($twig, $text, $dateFormat, $timeFormat, $pattern, $timezone);
+  },
+  //
+  // Deprecated, use native format_number
+  //
+  'localizednumber' => function ($number, $style = 'decimal', $type = 'default', $locale = null) {
+        return (new IntlExtension())->formatNumberStyle($style, $number, [], $type, $locale);
+  },
+  //
+  // Deprecated, use native format_currency
+  //
+  'localizedcurrency' => function ($number, $currency = null, $locale = null)  {
+        return (new IntlExtension())-> formatCurrency($number, $currency, [], $locale);
+      },
 /*
     'country_name' => function (?string $country, string $locale = null){
       return (new IntlExtension())->getCountryName($country, $locale);

@@ -1,18 +1,30 @@
 # TwigExt - Mercator Twig Extensions
 
 
-TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com). In addition, it allows developers to easily add new Twig
+TwigExt provides a set of Twig filters and functions for [WinterCMS](https://wintercms.com).  In addition, it allows developers to easily add new Twig
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-The plugin was originally based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda.
-It has been adapted and tested with [WinterCMS](https://wintercms.com) 1.2.
+The plugin is based on OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and includes that functionality.
+It has been tested with [WinterCMS](https://wintercms.com) 1.2.
+
+## Please read: Next version coming up with major changes
+The TwigExt plugin originated in [October CMS](https://octobercms.com) and was ported originally to [WinterCMS](https://wintercms.com) 1.1.
+Version 1 of this plugin required quite some work in order to run on 1.2 and was ported "quick and dirty" with the exception of ``time_diff``,
+which is currently only producing English output.
+
+You will see a version 2 of this plugin showing up as a branch shorty, which will see some major changes, in particular the
+removal of functionality that is already provided elsewhere. Example being ``truncate``, which is already available as ``u.truncate``.
+Besides making maintenance easier, it will ensure compatibility.
+
+In addition, for Laravel-mirrored functionality provided by this plugin,. you will see these functions being replaced by objects that
+allows using the respective Laravel functions natively along the lines ``{{ Storage('local').put('example.txt', 'Contents') }}``.
 
 ## Installation
 
 Use Composer to install the plugin by executing
 
 ```
-composer require mercator/wn-twigext-plugin "^1.2."
+composer require mercator/wn-twigext-plugin
 ```
 
 from the root of your [WinterCMS](https://wintercms.com) installation.
@@ -53,6 +65,7 @@ to produce the full image tag, i.e.
 ```
 In this case, *alt* will be the same as the actual QR code content.
 
+
 You can create all different sorts of QR codes, e.g. a vcard:
 ```
 {{ qrcodeIMG("
@@ -74,14 +87,14 @@ END:VCARD
 ```
 
 Parameters for the above functions are:
-- text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to *no data here*.
+- text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
 - scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
-- background: Background color in RGB hex format. Set to *XXXXXX* to generate a transparent background. Defaults to *XXXXXX*, which is transparent.
-- foreground: Foreground color in RGB hex format. Defaults to *000000*, which is black.
-- ecc: Error correction level, valid values: *qr, qr-l, qr-m, qr-q, qr-h*. Defaults to qr-l.
+- background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background. Defaults to XXXXXX, which is transparent.
+- foreground: Foreground color in RGB hex format. Defaults to 000000, which is black.
+- ecc: Error correction level, valid values: qr, qr-l, qr-m, qr-q, qr-h. Defaults to qr-l.
 
 ### Storage
-Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesystem):
+Providing [Laravel's storage functionality](https://laravel.com/docs/9.x/filesystem):
 #### Directories
 - storageDirectories(directory, [disk="local"]) --> returns array of directories in *directory* on the respective *disk*
 - storageAllDirectories(directory, [disk="local"]) --> returns array of directories in *directory* and its sub-directories on the respective *disk*
@@ -91,10 +104,10 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 
 #### Files
 - storageExists(file,[disk="local"]) returns true/false: Checks if *file* on the respective *disk* exists
-- storageGet(file,[disk="local"]) returns the content of the *file* on the respective *disk*
-- storageSize(file,[disk="local"]) returns the size of the *file* on the respective *disk*
-- storageLastModified(file,[disk="local"]) returns the last modification date of the *file* on the respective *disk*
-- storagePut(file, content,[disk="local"]) writes the *content* the *file* on the respective *disk*
+- storageGet(file,[disk="local"]) return content of the *file* on the respective *disk*
+- storageSize(file,[disk="local"]) return size of the *file* on the respective *disk*
+- storageLastModified(file,[disk="local"]) return the last modification date of the *file* on the respective *disk*
+- storagePut(file, content,[disk="local"]) write the *content* the *file* on the respective *disk*
 - storageCopy(from, to, [disk="local"]) copies a file
 - storageMove(from, to, [disk="local"]) moves a file
 - storagePrepend(file, content,[disk="local"]) prepends *content* to a *sile* om the respective *disk*
@@ -105,9 +118,10 @@ Providing [Laravel's storage functionality](https://laravel.com/docs/8.x/filesys
 Provide geo coordinates (longitude and latitude) for a given street address. Usage:
 
 ```
-{% set geo = geocodeAddress("Paradeplatz, Zürich, Switzerland") %}
-The address is located at {{ geo.longitude }} / {{ geo.latitude }} (long/lat).
+{% set geo = geocodeAddress("Pardeplatz, Zurich, Switzerland) %}
+The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 ```
+
 
 ### Cryptography
 Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/9.x/encryption) as Twig functions:
@@ -117,7 +131,7 @@ Providing [Laravel's cryptograhic functionality](https://laravel.com/docs/9.x/en
 - cryptDecrypt(vakue) implements Crypt::decrypt
 
 ### Cookies
-Providing [Laravel's cookie functionality](https://laravel.com/docs/8.x/responses#attaching-cookies-to-responses) as Twig functions:
+Providing [Laravel's cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) as Twig functions:
 - cookieQueue(key, [value = true], [duration in seconds = 86400])
 - cookieForever(key, [value = true])
 - cookieGet(key)
@@ -137,7 +151,7 @@ Use cookies for example to (re-)display text only after a certain time, e.g. onc
 ```
 
 ### Cache
-Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as Twig functions:
+Providing [Laravel's cache functionality](https://laravel.com/docs/9.x/cache) as Twig functions:
 - cacheAdd(key, value, [duration=3600 seconds]) implements Cache::Add
 - cachePut(key, value, [duration=3600 seconds]) implements Cache::Put
 - cacheForever(key) implements Cache::Forever
@@ -150,7 +164,7 @@ Providing [Laravel's cache functionality](https://laravel.com/docs/8.x/cache) as
 
 
 ### Session
-Providing [Laravel's session functionality](https://laravel.com/docs/8.x/session) as Twig functions:
+Providing [Laravel's session functionality](https://laravel.com/docs/9.x/session) as Twig functions:
 - sessionPush(key, value)
 - sessionGet(key, [default vaklue when key is not found = ""]) --> value
 - sessionPull(key, [default vaklue when key is not found = ""]) --> value
@@ -212,7 +226,7 @@ See [more about the Laravel config helper function here](https://laravel.com/doc
 
 ### env
 
-Provide functionality of the Laravel `env()` helper function in Twig.
+Function move the functionality of the Laravel `env()` helper function to Twig.
 
 ```
 {{ env('APP_ENV', 'production') }}
@@ -255,38 +269,18 @@ Dumps information about a variable. Can be also used as filter.
 Function loads a template from a string.
 
 ```
-{% set myname = "John" %}
-{{ include(template_from_string("Hello {{ myname }}")) }}
+{% set name = 'John' %}
+{{ include(template_from_string("Hello {{ name }}")) }}
 {{ include(template_from_string("Hurry up it is: {{ 'now'|date('m/d/Y') }}")) }}
 ```
 
 ## Available filters
 
-u, strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
-plural, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, mailto, var\_dump, revision, sortbyfield
+strftime, uppercase, lowercase, ucfirst, lcfirst, ltrim, rtrim, str\_repeat,
+plural, truncate, wordwrap, strpad, str_replace, strip_tags, leftpad, rightpad, rtl, shuffle, time\_diff,
+localizeddate, localizednumber, localizedcurrency, mailto, var\_dump, revision, sortbyfield
 
-## Twig u
-The Twig *u* filter has been implemented, providing in particular the following
-filters: **length, width, collapseWhitespace, folded, upper, title, camel, snake, ignoreCase, ignoreCase,
-prepend, append, ensureStart, ensureEnd, before, last, beforeLast, afterLast, padBoth, padStart,
-padEnd, trimStart, trimEnd, trimPrefix, trimSuffix, startsWith, endsWith, match, containsAny,
-indexOf, indexOfLast, replace, replaceMatches, join, split, slice, truncate, wordwrap, splice, chunk,
-startsWith, endsWith, equalsTo, ascii**
-
-Filters can be chained and do not require enclosing parenthesis when no additional parameters are used. Examples:
-```
-{{ "hello world" | u.lower.snake }}
-```
-
-The u filter is also available as a function, use as follows:
-```
-{{ u("hello world").lower.snake }}
-```
-
-See the official [Symfony documentation](https://symfony.com/doc/current/components/string.html) for details.
-
-
-### strftime
+### strftime (deprecated, use )
 
 Format a local time/date according to locale settings.
 
@@ -296,7 +290,7 @@ Posted at {{ article.date | strftime('%d.%m.%Y %H:%M:%S') }}
 
 The example would output *Posted at 04.01.2016 22:57:42*. See [more format parameters](http://php.net/manual/en/function.strftime.php#refsect1-function.strftime-parameters).
 
-### uppercase (deprecated, use *upper*)
+### uppercase (deprecated, use upper)
 
 Make a string uppercase.
 
@@ -306,7 +300,7 @@ Hello I'm {{ 'Jack' | uppercase }}
 
 The example would output *Hello I'm JACK*.
 
-### lowercase (deprecated, use *lower*)
+### lowercase (deprecated, use lower)
 
 Make a string lowercase.
 
@@ -336,7 +330,7 @@ Hello I'm {{ 'Jack' | lcfirst }}
 
 The example would output *Hello I'm jack*.
 
-### ltrim (deprecated, use *u.trimStart*)
+### ltrim (deprecated, use u.trimStart)
 
 Strip whitespace (or other characters) from the beginning of a string.
 
@@ -346,7 +340,7 @@ Hello I'm {{ ' jack' | ltrim }}
 
 The example would output *Hello I'm jack* without whitespaces from the start.
 
-### rtrim (deprecated, use *u.trimEnd*)
+### rtrim (deprecated, use u.trimEnd)
 
 Strip whitespace (or other characters) from the end of a string.
 
@@ -376,7 +370,66 @@ You have {{ count }} new {{ 'mail' | plural(count) }}
 
 The example would output *You have 1 new mail* or *You have 3 new mails* - depending on mails count.
 
-### strpad (deprecated, use *u.padBoth*)
+### truncate (deprecated, use u.truncate)
+
+Use the truncate filter to cut off a string after limit is reached.
+
+```
+{{ "Hello World!" | truncate(5) }}
+```
+
+The example would output *Hello...*, as ... is the default separator.
+
+You can also tell truncate to preserve whole words by setting the second parameter to true. If the last Word is on the the separator, truncate will print out the whole Word.
+
+```
+{{ "Hello World!" | truncate(7, true) }}
+```
+
+Here *Hello World!* would be printed.
+
+If you want to change the separator, just set the third parameter to your desired separator.
+
+```
+{{ "Hello World!" | truncate(7, false, "??") }}
+```
+
+This example would print *Hello W??*.
+
+### wordwrap (deprecated, use u.wordwrap)
+
+Use the wordwrap filter to split your text in lines with equal length.
+
+```
+{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10) }}
+```
+This example would print:
+
+```
+Lorem ipsu  
+m dolor si  
+t amet, co  
+nsectetur  
+adipiscing  
+```
+
+The default separator is "<br>", but you can easily change that by providing one:
+
+```
+{{ "Lorem ipsum dolor sit amet, consectetur adipiscing" | wordwrap(10, "zz<br>") }}
+```
+
+This would result in<br>:
+
+```
+Lorem ipsuzz  
+m dolor sizz  
+t amet, cozz  
+nsectetur zz  
+adipiscing  
+```
+
+### strpad (deprecated, use u.pad)
 
 Pad a string to a certain length with another string from both sides.
 
@@ -404,7 +457,7 @@ This would return:
 Bob
 ```
 
-### strip_tags (deprecated, use *striptags*)
+### strip_tags (deprecated, use striptags)
 
 Strip HTML and PHP tags from a string. In first parameter you can specify allowable tags.
 
@@ -418,7 +471,7 @@ This would return:
 <p>Text</p>
 ```
 
-### leftpad (deprecated, use *u.padStart*)
+### leftpad (deprecated, use u.padStart)
 
 Pad a string to a certain length with another string from left side.
 
@@ -432,7 +485,7 @@ This would print:
 ooxxx
 ```
 
-### rightpad (deprecated, use *u.padEnd*)
+### rightpad (deprecated, use u.padEnd)
 
 Pad a string to a certain length with another string from right side.
 
@@ -446,7 +499,7 @@ This would print:
 xxxoo
 ```
 
-### rtl (deprecated, use *u.reverse*)
+### rtl (deprecated, use reverse)
 
 Reverse a string.
 
@@ -476,12 +529,96 @@ or in foreach:
 {% endfor %}
 ```
 
+### time_diff
+
+Use the time_diff filter to render the difference between a date and now.
+
+```
+{{ post.published_at | time_diff }}
+```
+
+The example above will output a string like 4 seconds ago or in 1 month, depending on the filtered date.
+
+Output is **translatable**. All translations are stored at `/lang` folder in this plugin. If you want more locales, just copy them from [this repository](https://github.com/KnpLabs/KnpTimeBundle/tree/master/Resources/translations), replace `%count%` with `:count` and send it as pull reqest to this repository.
+
+#### Arguments
+
+- date: The date for calculate the difference from now. Can be a string or a DateTime instance.
+- now: The date that should be used as now. Can be a string or a DateTime instance. Do not set this argument to use current date.
+
+#### Translation
+
+To get a translatable output, give a Symfony\Component\Translation\TranslatorInterface as constructor argument. The returned string is formatted as diff.ago.XXX or diff.in.XXX where XXX can be any valid unit: second, minute, hour, day, month, year.
+
+### localizeddate (deprecated, use format_datetime)
+
+Use the localizeddate filter to format dates into a localized string representating the date. Note that **php5-intl extension**/**php7-intl extension** has to be installed!
+
+```
+{{ "date" | localizeddate('medium') }}
+```
+
+The localizeddate filter accepts strings (it must be in a format supported by the strtotime function), DateTime instances, or Unix timestamps.
+
+#### Arguments
+- date_format: The date format. Choose one of these formats:
+    - 'none': IntlDateFormatter::NONE
+    - 'short': IntlDateFormatter::SHORT
+    - 'medium': IntlDateFormatter::MEDIUM
+    - 'long': IntlDateFormatter::LONG
+    - 'full': IntlDateFormatter::FULL
+- time_format: The time format. Same formats possible as above.
+- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
+- timezone: The date timezone
+- format: Optional pattern to use when formatting or parsing. Possible patterns are documented in the ICU user guide.
+
+### localizednumber deprecated, use format_number)
+
+Use the localizednumber filter to format numbers into a localized string representating the number. Note that **php5-intl extension** has to be installed!
+
+```
+{{ product.quantity | localizednumber }}
+```
+
+Internally, Twig uses the PHP NumberFormatter::create() function for the number.
+
+#### Arguments
+
+- style: Optional date format (default: 'decimal'). Choose one of these formats:
+    - 'decimal': NumberFormatter::DECIMAL
+    - 'currency': NumberFormatter::CURRENCY
+    - 'percent': NumberFormatter::PERCENT
+    - 'scientific': NumberFormatter::SCIENTIFIC
+    - 'spellout': NumberFormatter::SPELLOUT
+    - 'ordinal': NumberFormatter::ORDINAL
+    - 'duration': NumberFormatter::DURATION
+- type: Optional formatting type to use (default: 'default'). Choose one of these types:
+    - 'default': NumberFormatter::TYPE_DEFAULT
+    - 'int32': NumberFormatter::TYPE_INT32
+    - 'int64': NumberFormatter::TYPE_INT64
+    - 'double': NumberFormatter::TYPE_DOUBLE
+    - 'currency': NumberFormatter::TYPE_CURRENCY
+- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
+
+### localizedcurrency deprecated, use format_currency)
+
+Use the localizedcurrency filter to format a currency value into a localized string. Note that **php5-intl extension** has to be installed!
+
+```
+{{ product.price | localizedcurrency('EUR') }}
+```
+
+#### Arguments
+
+- currency: The 3-letter ISO 4217 currency code indicating the currency to use.
+- locale: The locale used for the format. If NULL is given, Twig will use Locale::getDefault()
+
 ### mailto
 
 Filter for rendering email as normal mailto link, but with encryption against bots!
 
 ```
-{{ "do-not-reply-to-this@gmail.com" | mailto }}
+{{ 'do-not-reply-to-this@gmail.com' | mailto }}
 ```
 
 returns something along the lines
@@ -544,11 +681,11 @@ Sort array/collection by given field (key).
 Output will be: John David
 
 # Adding New Filters and Functions
-Often, a project requires a few specific functions. Traditionally, a Winter developer would therefore implement tailor-made
-plugins with the required functionality. This is quite some effort when only one or two
-functions are needed. This plugin simplifies the addition of project-specific filters and functions.
+Often, a project requires a few specific functions. These can be added by adding **twig/functions** or **twig/filters** subdirectories to
+the current theme and include functions an filters in there. TwigExt will load all files startung with an underscore ** \_ ** and ending in **.php**
+and make the included filters and functions available in Twig.
 
-Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory, files to be loaded must start with an underscore):
+Functions are added as follow (by placing them, e.g, in **twig/functions/\_myFucntions.php** in the active themes directory):
 ```
 <?php
 
@@ -561,7 +698,7 @@ $functions += [
 ];
 ```
 
-Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFucntions.php** in the active themes directory, files to be loaded must start with an underscore):
+Filters are added as follow (by placing them, e.g, in **twig/filters/\_myFucntions.php** in the active themes directory):
 ```
 <?php
 
@@ -577,7 +714,7 @@ See [Winter's documenttation](https://wintercms.com/docs/plugin/registration#ext
 
 ## Contributing
 
-**Feel free to send pull request to the 1.2 branch!**
+*Feel free to send pull request!* Please, send Pull Request to master branch.
 
 ## License
 
