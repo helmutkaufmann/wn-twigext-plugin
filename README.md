@@ -74,6 +74,13 @@ As a second example, to retrieve all files on disk "portfolio", just use the fol
 All functions of the respective Laravel classes can be used in this way - simple, isn't it?
 Please see the respective Laravel documentation mentioned above for details on the available functionality.
 
+In case you want to access other objects, you can do so by using the special function ``accesObject(class name)``.
+To illustrate it, imagine for a second that the Twig function ``cache`` had not been defined as per the above,
+in this case, you could access methods of the ``Cache``class through:
+```
+{{ accesObject("Cache").put("TwigExt", "is great", 10) }}
+{{ accesObject("Cache").get("TwigExt") }}
+```
 
 Note: In the documentation below the description of the corresponding functions of version 1 of this plugin has been
 removed, the functions itself have not been removed for the very time being.
