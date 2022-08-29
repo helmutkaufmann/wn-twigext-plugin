@@ -19,8 +19,6 @@ class twigextStaticClass {
 	}
 }
 
-
-
 $functions += [
 	'cache' => function () {
 		  return new twigextStaticClass("Cache");
@@ -43,15 +41,7 @@ $functions += [
 	'str' => function () {
 		  return new twigextStaticClass("Str");
 	},
-];
-
-$functions += [
 	'accesObject'=> function ($name) {
 		  return new twigextStaticClass($name);
 	},
 ];
-
-
-
-
-?>
