@@ -92,7 +92,8 @@ removed, the functions itself have not been removed for the very time being.
 #### QR code for inline use (qrcodeSRC and qrcodeIMG)
 Create a GIF with a red QR code on a transparent background pointing to *mercator.li*:
 ```
-<img alt="mercator dot li" src="{{ qrcodeSRC("https://mercator.li", 2, "XXXXXX", "000000") }}">
+qrcodeLink("mercator.l", "Helmut's website", "https://mercator.li", $scale=2, $background="XXXXXX", $foreground="000000", $ecc="qr-l")
+},
 ```
 alternatively, use the short version
 ```
@@ -127,6 +128,8 @@ END:VCARD
 
 Parameters for the above functions are:
 - text: Text to be converted to a QR code, e.g. https://mercator.li. Defaults to "no data here".
+- alt: Alternative text, uses text if null. If no alternative text is desired, set to ""
+- link: Creates a QR code that can be clicked at, taking the user to the specified URL
 - scale: Scale factor of the QR code, 1 being the smallest. Defaults to 2.
 - background: Background color in RGB hex format. Set to XXXXXX to generate a transparent background. Defaults to XXXXXX, which is transparent.
 - foreground: Foreground color in RGB hex format. Defaults to 000000, which is black.
@@ -139,6 +142,8 @@ Provide geo coordinates (longitude and latitude) for a given street address. Usa
 {% set geo = geocodeAddress("Pardeplatz, Zurich, Switzerland) %}
 The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 ```
+
+This function is using data from [OpenStreet Mat](https://openstreetmap.org). 
 
 ### Paths
 Providing Winter's path helper functionality as Twig functions:

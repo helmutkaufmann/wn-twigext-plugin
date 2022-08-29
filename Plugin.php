@@ -1,10 +1,11 @@
-<?php namespace Mercator\TwigExt;
+<?php
+
+namespace Mercator\TwigExt;
 
 /*
 The MIT License (MIT)
 
 Copyright (C) 2021 Helmut Kaufmann, https://mercator.li, software@mercator.li
-Copyright (C) 2016 Vojta Svoboda
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +24,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 */
 
 use App;
@@ -42,105 +42,90 @@ use Mercator\TwigExt\Classes\TimeDiffTranslator;
  *
  * @see http://twig.sensiolabs.org/doc/extensions/index.html#extensions-install
  */
-class Plugin extends PluginBase {
+class Plugin extends PluginBase
+{
+    public function registerPermissions()
+    {
+        return ['mercator.twigextensions.configuration' => ['tab' => 'Twig Extensions', 'label' => 'Manage configuration',]];
+    }
 
-  /**
-   * Registers any back-end permissions used by this plugin.
-   *
-   * @return array
-   */
-   public function registerPermissions() {
-       return ['mercator.twigextensions.configuration' => ['tab' => 'Twig Extensions', 'label' => 'Manage configuration', ],
-
-     ];
-   }
-
-    /**
-     * @var boolean Determine if this plugin should have elevated privileges.
-     */
     public $elevated = false;
 
-    /**
-     * Returns information about this plugin.
-     *
-     * @return array
-     */
-    public function pluginDetails() {
+    public function pluginDetails()
+    {
 
-      return ['name' => 'Twig Extensions (Second Edition)',
-              'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
-              'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
-              'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
-              'permissions' => ['mercator.twigextensions.configuration'],
-              'category' => 'mercator', 'icon' => 'icon-cog',];
+        return [
+            'name' => 'Twig Extensions (Second Edition)',
+            'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
+            'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
+            'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
+            'permissions' => ['mercator.twigextensions.configuration'],
+            'category' => 'mercator', 'icon' => 'icon-cog',
+        ];
     }
 
-    public function registerSettings() {
+    public function registerSettings()
+    {
 
-      return ['settings' => ['label' => 'Twig Extensions (Second Edition)',
-              'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
-              'category' => 'mercator', 'icon' => 'icon-cog',
-              'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500,
-              'keywords' => 'Helmut Kaufmann Twig Extensions Mercator',
-              'permissions' => ['mercator.twigext.twigextperm']]];
-
+        return ['settings' => [
+            'label' => 'Twig Extensions (Second Edition)',
+            'description' => 'Twig extension library providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.',
+            'category' => 'mercator', 'icon' => 'icon-cog',
+            'class' => 'Mercator\TwigExt\Models\Settings', 'order' => 500,
+            'keywords' => 'Helmut Kaufmann Twig Extensions Mercator',
+            'permissions' => ['mercator.twigext.twigextperm']
+        ]];
     }
 
-    public function boot() {
+    public function boot()
+    {
 
-      //
-      // Add event listener to add extra functionality as provieded by twig/* extensions
-      //
-      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-          $twigExtension = new IntlExtension();
-          $twig = $controller->getTwig();
-          if (! $twig->hasExtension('Twig\Extra\Intl\IntlExtension')) {
-              $twig->addExtension($twigExtension);
-          }
-      });
+        //
+        // Add event listener to add extra functionality as provieded by twig/* extensions
+        //
+        Event::listen('cms.page.beforeRenderPage', function ($controller, $page) {
+            $twigExtension = new IntlExtension();
+            $twig = $controller->getTwig();
+            if (!$twig->hasExtension('Twig\Extra\Intl\IntlExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
 
-      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-          $twigExtension = new HtmlExtension();
-          $twig = $controller->getTwig();
-          if (! $twig->hasExtension('Twig\Extra\Html\HtmlExtension')) {
-              $twig->addExtension($twigExtension);
-          }
-      });
+        Event::listen('cms.page.beforeRenderPage', function ($controller, $page) {
+            $twigExtension = new HtmlExtension();
+            $twig = $controller->getTwig();
+            if (!$twig->hasExtension('Twig\Extra\Html\HtmlExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
 
-      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-          $twigExtension = new StringExtension();
-          $twig = $controller->getTwig();
-          if (! $twig->hasExtension('Twig\Extra\String\StringExtension')) {
-              $twig->addExtension($twigExtension);
-          }
+        Event::listen('cms.page.beforeRenderPage', function ($controller, $page) {
+            $twigExtension = new StringExtension();
+            $twig = $controller->getTwig();
+            if (!$twig->hasExtension('Twig\Extra\String\StringExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
 
-      });
+        Event::listen('cms.page.beforeRenderPage', function ($controller, $page) {
+            $twigExtension = new StringLoaderExtension();
+            $twig = $controller->getTwig();
+            if (!$twig->hasExtension('Twig\Extension\StringLoaderExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
 
-      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-          $twigExtension = new StringLoaderExtension();
-          $twig = $controller->getTwig();
-          if (! $twig->hasExtension('Twig\Extension\StringLoaderExtension')) {
-              $twig->addExtension($twigExtension);
-          }
-
-      });
-
-      Event::listen('cms.page.beforeRenderPage', function($controller, $page) {
-          $twigExtension = new DateExtension();
-          $twig = $controller->getTwig();
-          if (! $twig->hasExtension('Twig\Extra\Date\DateExtension')) {
-              $twig->addExtension($twigExtension);
-          }
-
-      });
+        Event::listen('cms.page.beforeRenderPage', function ($controller, $page) {
+            $twigExtension = new DateExtension();
+            $twig = $controller->getTwig();
+            if (!$twig->hasExtension('Twig\Extra\Date\DateExtension')) {
+                $twig->addExtension($twigExtension);
+            }
+        });
     }
 
-    /**
-     * Add Twig extensions.
-     *
-     * @return array
-     */
-    public function registerMarkupTags() {
+    public function registerMarkupTags()
+    {
 
         $filters = [];
         $functions = [];
@@ -162,6 +147,6 @@ class Plugin extends PluginBase {
         //
         // Return all filters and functions.
         //
-        return ['filters' => $filters, 'functions' => $functions, ];
+        return ['filters' => $filters, 'functions' => $functions,];
     }
 }
