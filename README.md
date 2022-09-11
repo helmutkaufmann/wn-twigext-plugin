@@ -7,8 +7,8 @@ The plugin was originally based OctoberCMS' [Twig Extensions](https://github.com
 the plugin contains duplication in functionality, e.g., the filter ``truncate``, which is also provided as ``u.truncate``. Also, access to
 built-in Laravel functionality, such as to the ``Storage``and other classes, had been maintained manually, which is prone to error.
 
-This revised
-version replaces the existing hand-coded functions to Laravel functionality by providing access through an object. For example, adding a key to
+This revised version replaces the existing hand-coded functions to Laravel functionality by providing access through Laravel objects.
+For example, adding a key to
 the cache for 10 seconds is now ``cache().add("key", "value", 10)`` as opposed to ``cacheAdd("key", "value", 10)``. While this looks trivial at
 first sight, it is a true step forward as it reduces the number of filters and functions Winter has to read and maintain internally and -
 maintenance-wise - 90% of the original code of this plugin can be removed.
@@ -49,17 +49,17 @@ This is just {{ 'great' | uppercase }}
 ### Laravel Native Functionality
 Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
 provided by Laravel. At the moment, the following functionalities can be accesed:
-- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage``
-- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt``
-- [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache``
-- [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie``
-- [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session``
-- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hashing``
+- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage()``, e.g., ``{ storage().disk('local').append('example.txt', 'This is content in ') }}`
+- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt()``, e.g., ``{{ crypt().encryptString("This string gets encrypted") }}
+- [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache()``
+- [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie()``
+- [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session()``
+- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hashing()``
 
 Usage is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
 ```
-{{ cache().put("TwigExt", "is great", 10) }}
-{{ cache().get("TwigExt") }}
+{% set msg=cache().put("TwigExt", "is great", 10)  %}}
+TwigExt {{ cache().get("TwigExt") }}
 ```
 
 As a second example, to retrieve all files on disk "portfolio", just use the following
@@ -81,7 +81,7 @@ In case you want to access other objects, you can do so by using the special fun
 To illustrate it, imagine for a second that the Twig function ``cache`` had not been defined as per the above,
 in this case, you could access methods of the ``Cache``class through:
 ```
-{{ accesObject("Cache").put("TwigExt", "is great", 10) }}
+{% accesObject("Cache").put("TwigExt", "is great", 10) %}
 {{ accesObject("Cache").get("TwigExt") }}
 ```
 
@@ -143,7 +143,7 @@ Provide geo coordinates (longitude and latitude) for a given street address. Usa
 The address is located at {{ geo.longitude }} {{ geo.latitude }} (long/lat).
 ```
 
-This function is using data from [OpenStreet Mat](https://openstreetmap.org). 
+This function is using data from [OpenStreet Mat](https://openstreetmap.org).
 
 ### Paths
 Providing Winter's path helper functionality as Twig functions:
@@ -427,6 +427,8 @@ Filters and functions MUST provide return values. Multiple new filters or functi
 See [Winter's documentation](https://wintercms.com/docs/plugin/registration#extending-twig) for additional details.
 
 ## Contributing
+
+A big thanks to Matteo Trubini for his ideas regarding version 2 of the plugin.
 
 *Feel free to send pull request!* Please, send Pull Request to master branch.
 
