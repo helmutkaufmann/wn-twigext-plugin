@@ -49,8 +49,8 @@ This is just {{ 'great' | uppercase }}
 ### Laravel Native Functionality
 Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
 provided by Laravel. At the moment, the following functionalities can be accesed:
-- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage()``, e.g., ``{ storage().disk('local').append('example.txt', 'This is content in ') }}`
-- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt()``, e.g., ``{{ crypt().encryptString("This string gets encrypted") }}
+- [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage()``, e.g., ``{{storage().disk('local').append('example.txt', 'This is content in ') }}``
+- [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt()``, e.g., ``{{ crypt().encryptString("This string gets encrypted") }}``
 - [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache()``
 - [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie()``
 - [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session()``
