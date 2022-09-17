@@ -58,7 +58,7 @@ provided by Laravel. At the moment, the following functionalities can be accesed
 
 Usage is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
 ```
-{% set msg=cache().put("TwigExt", "is great", 10)  %}}
+{% set msg = cache().put("TwigExt", "is great", 10)  %}}
 TwigExt {{ cache().get("TwigExt") }}
 ```
 
