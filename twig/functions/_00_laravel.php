@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 //
 class twigextStaticClass
 {
-
     private $twigextCallerClass;
 
     public function __construct($thisClass)
@@ -45,7 +44,7 @@ $functions += [
     'str' => function () {
         return new twigextStaticClass("Str");
     },
-    'accesObject' => function ($name) {
+    'object' => function ($name) {
         return new twigextStaticClass($name);
     },
 ];

@@ -36,6 +36,7 @@ use Twig\Extra\String\StringExtension;
 use Twig\Extension\StringLoaderExtension;
 use Twig\Extra\Date\DateExtension;
 use Mercator\TwigExt\Classes\TimeDiffTranslator;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Twig Extensions Plugin.
@@ -49,16 +50,15 @@ class Plugin extends PluginBase
         return ['mercator.twigextensions.configuration' => ['tab' => 'Twig Extensions', 'label' => 'Manage configuration',]];
     }
 
-    public $elevated = false;
+    public $elevated = true;
 
     public function pluginDetails()
     {
-
         return [
             'name' => 'Twig Extensions (Second Edition)',
             'description' => "Extensive Twig extension library for Winter CMS, providing Laravel native functionality, such as caching, sessions, cryptography, access to directories, files/storage, and many more.",
             'author' => 'Helmut Kaufmann', 'icon' => 'icon-plus',
-            'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin',
+            'homepage' => 'https://github.com/helmutkaufmann/wn-twigext-plugin/tree/2.0',
             'permissions' => ['mercator.twigextensions.configuration'],
             'category' => 'mercator', 'icon' => 'icon-cog',
         ];
@@ -77,8 +77,14 @@ class Plugin extends PluginBase
         ]];
     }
 
+
+
     public function boot()
     {
+
+      Event::listen('cms.page.beforeRenderPage', function($controller) {
+          $controller->vars['laravel'] = new Hash();
+        });
 
         //
         // Add event listener to add extra functionality as provieded by twig/* extensions

@@ -3,7 +3,7 @@
 TwigExt provides additiona Twig filters and functions for [WinterCMS](https://wintercms.com). In addition, it allows developers to easily add new Twig
 functions and filters to a [WinterCMS](https://wintercms.com) theme.
 
-The plugin was originally based OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and included that functionality. Porting the original version to Winter 1.2 required quite some effort and it also became more and more apparant over time that
+The plugin was originally based OctoberCMS' [Twig Extensions](https://github.com/vojtasvoboda/oc-twigextensions-plugin) by Vojta Svoboda and included that functionality. Porting the original version to Winter 1.2 required quite some effort and it also became more and more apparent over time that
 the plugin contains duplication in functionality, e.g., the filter ``truncate``, which is also provided as ``u.truncate``. Also, access to
 built-in Laravel functionality, such as to the ``Storage``and other classes, had been maintained manually, which is prone to error.
 
@@ -12,7 +12,7 @@ For example, adding a key to
 the cache for 10 seconds is now ``cache().add("key", "value", 10)`` as opposed to ``cacheAdd("key", "value", 10)``. While this looks trivial at
 first sight, it is a true step forward as it reduces the number of filters and functions Winter has to read and maintain internally and -
 maintenance-wise - 90% of the original code of this plugin can be removed.
-In addtion, developers will at all times have access to the latest Laravel functions available through these classes and can consult the
+In addition, developers will at all times have access to the latest Laravel functions available through these classes and can consult the
 original Laravel documentation if required.
 
 Currently the following Laravel classes and related methods are available: Storage, Crypt, Cookie, Cache, Session, Hashing.
@@ -30,7 +30,7 @@ Alternatively, create a directory "mercator/twigext", download the [files from G
 
 Installation from the [WinterCMS](https://wintercms.com) backend will be added once the [WinterCMS](https://wintercms.com) marketplace is available.
 
-You can now use the newly added filters and functions in your theme (layouts, partials, ....). For example:
+You can now use the newly added filters and functions in your theme (layouts, partials, ...). For example:
 
 ```
 {% redirect('https://mercator.li') %}
@@ -48,13 +48,13 @@ This is just {{ 'great' | uppercase }}
 
 ### Laravel Native Functionality
 Similar to Twig's ``u`` filter, which provides access to Symfony's UnicodeString instance, TwigExt provides direct access to functions
-provided by Laravel. At the moment, the following functionalities can be accesed:
+provided by Laravel. At the moment, the following functionalities can be accessed:
 - [Storage functionality](https://laravel.com/docs/9.x/filesystem) through Twig function ``storage()``, e.g., ``{{storage().disk('local').append('example.txt', 'This is the contenti og file example.txt.') }}``
 - [Cryptograhic functionality](https://laravel.com/docs/9.x/encryption) through Twig function ``crypt()``, e.g., ``{{ crypt().encryptString("This string gets encrypted") }}``
 - [Cache functionality](https://laravel.com/docs/9.x/cache) through Twig function ``cache()``
 - [Cookie functionality](https://laravel.com/docs/9.x/responses#attaching-cookies-to-responses) through Twig function ``cookie()``
 - [Session functionality](https://laravel.com/docs/9.x/session) through Twig function ``session()``
-- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hashing()``
+- [Hashing functionality](https://laravel.com/docs/9.x/hashing#main-content) through Twig function ``hash()``
 
 Usage is best illustrated by an example: Write a key/value pair to the cache for 10 seconds and retrieve it subsequently:
 ```
@@ -69,7 +69,7 @@ As a second example, to retrieve all files on disk "portfolio", just use the fol
 All functions of the respective Laravel classes can be used in this way - simple, isn't it?
 Please see the respective Laravel documentation mentioned above for details on the available functionality.
 
-While the above approach will probably satisy 90% of the use cases, there are limitations, e.g., closures as ber the below
+While the above approach will probably satisfy 90% of the use cases, there are limitations, e.g., closures as per the below
 cannot be implemented:
 ```
 $value = Cache::rememberForever('users', function () {
@@ -77,12 +77,12 @@ $value = Cache::rememberForever('users', function () {
 });
 ```
 
-In case you want to access other objects, you can do so by using the special function ``accesObject(class name)``.
+In case you want to access other objects, you can do so by using the special function ``object(class name)``.
 To illustrate it, imagine for a second that the Twig function ``cache`` had not been defined as per the above,
 in this case, you could access methods of the ``Cache``class through:
 ```
-{% accesObject("Cache").put("TwigExt", "is great", 10) %}
-{{ accesObject("Cache").get("TwigExt") }}
+{% object("Cache").put("TwigExt", "is great", 10) %}
+{{ object("Cache").get("TwigExt") }}
 ```
 
 Note: In the documentation below the description of the corresponding functions of version 1 of this plugin has been
