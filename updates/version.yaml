@@ -1,0 +1,18 @@
+0.9.001: Initial version on TwigExt based on October's Twig Extensions.
+0.9.002: Updated README.
+0.9.003: Added composer.json.
+0.9.004: Updated README with example.
+0.9.005: Updated LICENSE.
+0.9.006: Included ngresize (temporarily)
+0.9.007: Removed resize.
+0.9.008: Based on browser capabilities, the default extension is switched to web when using the resize function. This should lead to considerably smaller images sized.
+0.9.009: Adapted code for 0.9.008 to address $_SERVER['HTTP_ACCEPT'] not being set. Updated version history.
+1.0.000: Production version.
+1.0.001: Added maps functionality
+1.0.002: Added cryptEncrypt and cryptDecrypt
+1.1.000: Added QR Code functionality
+1.1.001: Replace require by require_once when including functions and filters
+1.1.002: Updated README, syncing release numbers
+1.2.001: Initial commit in support of Winter 1.2
+1.2.005: Commit for Winter 1.2 and communicated on Discord
+2.0.0xx: Version 2 WIP
